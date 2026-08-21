@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <!-- Dark vintage cassette shell gradient -->
+    <linearGradient id="shellGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1c1815"/>
+      <stop offset="50%" stop-color="#120f0e"/>
+      <stop offset="100%" stop-color="#0a0807"/>
+    </linearGradient>
+
+    <!-- Vintage cream label sticker gradient -->
+    <linearGradient id="labelGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f5ebda"/>
+      <stop offset="100%" stop-color="#e2d4bc"/>
+    </linearGradient>
+
+    <!-- Metallic screw gradient -->
+    <linearGradient id="screwGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5a524c"/>
+      <stop offset="100%" stop-color="#2a2420"/>
+    </linearGradient>
+
+    <!-- Drop shadow filter for 3D cassette feel -->
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.6"/>
+    </filter>
+
+    <!-- Inner label shadow -->
+    <filter id="innerShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Cassette Body Outer Shell -->
+  <rect x="24" y="24" width="464" height="464" rx="48" ry="48" fill="url(#shellGrad)" stroke="#2d2622" stroke-width="4" filter="url(#shadow)"/>
+  
+  <!-- Outer Rim Bevel Line -->
+  <rect x="36" y="36" width="440" height="440" rx="38" ry="38" fill="none" stroke="#3d342e" stroke-width="2" opacity="0.6"/>
+
+  <!-- Corner Screws -->
+  <!-- Top Left -->
+  <circle cx="58" cy="58" r="11" fill="url(#screwGrad)" stroke="#120f0e" stroke-width="2"/>
+  <path d="M 52 58 H 64 M 58 52 V 64" stroke="#120f0e" stroke-width="2.5" stroke-linecap="round"/>
+  
+  <!-- Top Right -->
+  <circle cx="454" cy="58" r="11" fill="url(#screwGrad)" stroke="#120f0e" stroke-width="2"/>
+  <path d="M 448 58 H 460 M 454 52 V 64" stroke="#120f0e" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- Bottom Left -->
+  <circle cx="58" cy="454" r="11" fill="url(#screwGrad)" stroke="#120f0e" stroke-width="2"/>
+  <path d="M 52 454 H 64 M 58 448 V 460" stroke="#120f0e" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- Bottom Right -->
+  <circle cx="454" cy="454" r="11" fill="url(#screwGrad)" stroke="#120f0e" stroke-width="2"/>
+  <path d="M 448 454 H 460 M 454 448 V 460" stroke="#120f0e" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- Sticker Label (Vintage Off-White / Cream) -->
+  <rect x="56" y="56" width="400" height="268" rx="26" fill="url(#labelGrad)" stroke="#cbb99d" stroke-width="3" filter="url(#innerShadow)"/>
+  
+  <!-- Subtle Vintage Border on Label -->
+  <rect x="68" y="68" width="376" height="244" rx="18" fill="none" stroke="#b8a486" stroke-width="1.5" stroke-dasharray="8 5" opacity="0.5"/>
+
+  <!-- RED CROWN & BH BRANDING (Crimson Red #e11d48) -->
+  <g fill="none" stroke="#e11d48" stroke-linecap="round" stroke-linejoin="round">
+    
+    <!-- CROWN -->
+    <!-- Crown Base Line -->
+    <path d="M 215 125 C 238 130 274 130 297 125" stroke-width="9"/>
+    
+    <!-- Crown Prongs / Body -->
+    <path d="M 216 120 L 208 84 L 236 106 L 256 70 L 276 106 L 304 84 L 296 120 Z" fill="#e11d48" stroke-width="3"/>
+
+    <!-- BH BRUSH LOGO -->
+    <!-- Letter 'B' -->
+    <!-- Left Vertical Stem -->
+    <path d="M 142 148 C 144 185 140 225 136 262" stroke-width="22"/>
+    <!-- Top Loop -->
+    <path d="M 144 150 C 182 142 216 154 212 186 C 208 206 186 214 140 212" stroke-width="20"/>
+    <!-- Bottom Loop -->
+    <path d="M 140 212 C 196 210 224 224 220 256 C 215 278 172 274 134 266" stroke-width="20"/>
+
+    <!-- Letter 'H' -->
+    <!-- Left Stem -->
+    <path d="M 252 146 C 254 185 250 224 246 262" stroke-width="22"/>
+    <!-- Crossbar -->
+    <path d="M 250 206 C 278 204 310 202 334 200" stroke-width="19"/>
+    <!-- Right Stem -->
+    <path d="M 330 142 C 338 182 348 222 362 264" stroke-width="22"/>
+
+    <!-- Dynamic Bottom Brush Underline -->
+    <path d="M 118 280 C 205 284 295 286 386 278" stroke-width="14"/>
+  </g>
+
+  <!-- Tape Window Recessed Area (Dark Charcoal) -->
+  <rect x="104" y="340" width="304" height="74" rx="16" fill="#080706" stroke="#26201b" stroke-width="3"/>
+  
+  <!-- Tape Ribbon Bridge -->
+  <rect x="190" y="365" width="132" height="24" fill="#2b2017" opacity="0.9"/>
+  <line x1="190" y1="377" x2="322" y2="377" stroke="#423326" stroke-width="2"/>
+
+  <!-- Left Tape Reel Hub -->
+  <circle cx="168" cy="377" r="25" fill="#e2d4bc" stroke="#120f0e" stroke-width="3"/>
+  <circle cx="168" cy="377" r="13" fill="#080706"/>
+  <!-- Spool Teeth -->
+  <circle cx="168" cy="368" r="2" fill="#e2d4bc"/>
+  <circle cx="168" cy="386" r="2" fill="#e2d4bc"/>
+  <circle cx="160" cy="372" r="2" fill="#e2d4bc"/>
+  <circle cx="176" cy="372" r="2" fill="#e2d4bc"/>
+  <circle cx="160" cy="382" r="2" fill="#e2d4bc"/>
+  <circle cx="176" cy="382" r="2" fill="#e2d4bc"/>
+
+  <!-- Right Tape Reel Hub -->
+  <circle cx="344" cy="377" r="25" fill="#e2d4bc" stroke="#120f0e" stroke-width="3"/>
+  <circle cx="344" cy="377" r="13" fill="#080706"/>
+  <!-- Spool Teeth -->
+  <circle cx="344" cy="368" r="2" fill="#e2d4bc"/>
+  <circle cx="344" cy="386" r="2" fill="#e2d4bc"/>
+  <circle cx="336" cy="372" r="2" fill="#e2d4bc"/>
+  <circle cx="352" cy="372" r="2" fill="#e2d4bc"/>
+  <circle cx="336" cy="382" r="2" fill="#e2d4bc"/>
+  <circle cx="352" cy="382" r="2" fill="#e2d4bc"/>
+
+  <!-- Bottom Cassette Trapezoid Notch -->
+  <polygon points="80,470 112,424 400,424 432,470" fill="#171311" stroke="#2d2622" stroke-width="3"/>
+  
+  <!-- Notch Circles & Slots -->
+  <circle cx="145" cy="447" r="10" fill="#080706" stroke="#2d2622" stroke-width="2"/>
+  <circle cx="367" cy="447" r="10" fill="#080706" stroke="#2d2622" stroke-width="2"/>
+  <rect x="205" y="438" width="44" height="20" rx="4" fill="#080706"/>
+  <rect x="263" y="438" width="44" height="20" rx="4" fill="#080706"/>
+</svg>

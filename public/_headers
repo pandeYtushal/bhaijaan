@@ -1,0 +1,6 @@
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()
+  X-Frame-Options: SAMEORIGIN
+  Content-Security-Policy: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self'; form-action 'self'; script-src 'self' https://www.youtube.com https://www.youtube-nocookie.com https://s.ytimg.com https://www.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://i.ytimg.com https://img.youtube.com https://s.ytimg.com https://*.ytimg.com https://*.googleusercontent.com; media-src 'self' blob: https://*.googlevideo.com https://*.youtube.com; connect-src 'self' https://www.youtube.com https://*.youtube.com https://*.googlevideo.com https://*.google.com https://google.com https://jnn-pa.googleapis.com https://*.googleapis.com; frame-src https://www.youtube.com https://www.youtube-nocookie.com https://open.spotify.com; worker-src 'self' blob:; upgrade-insecure-requests

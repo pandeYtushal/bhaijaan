@@ -1,0 +1,143 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Courier+Prime:wght@400;700&family=Outfit:wght@400;500;600;700&family=Yatra+One&display=swap');
+@import "tailwindcss";
+
+:root { background:#050504; color:#fff; font-family:Outfit, sans-serif; }
+* { box-sizing:border-box; }
+body { margin:0; min-width:320px; }
+button { font:inherit; cursor:pointer; }
+svg { fill:currentColor; height:18px; width:18px; }
+
+.saloon-page { align-items:center; display:flex; min-height:100dvh; overflow:hidden; padding:100px 24px 170px; position:relative; z-index:0; }
+.photo,.shade,.noise { inset:0; pointer-events:none; position:fixed; }
+.photo { background:url('/bg-bhaijaan-room.jpg') center/cover no-repeat; filter:brightness(.68) saturate(.84) contrast(1.08); transform:scale(1.02); z-index:-3; }
+.shade { background:linear-gradient(180deg,rgba(0,0,0,.42),rgba(0,0,0,.02) 36%,rgba(0,0,0,.12) 56%,rgba(0,0,0,.86) 100%); z-index:-2; }
+.noise { background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); opacity:.05; z-index:-1; }
+
+.film-flash { background:rgba(255,193,91,.25); inset:0; pointer-events:none; position:fixed; z-index:9; animation:flash .34s ease-out forwards; }
+@keyframes flash { from { opacity:1; } to { opacity:0; } }
+
+.top { align-items:center; display:grid; grid-template-columns:1fr auto 1fr; left:0; padding:22px 26px; position:fixed; right:0; top:0; z-index:2; }
+.logo,.collection-button { background:none; border:0; color:#fff; }
+.logo { font-family:'Bebas Neue'; font-size:19px; letter-spacing:.12em; padding:0; text-shadow:0 2px 12px #000; }
+.logo span { color:rgba(255,255,255,.38); }
+.online { align-items:center; display:flex; gap:7px; margin:0; text-shadow:0 2px 9px #000; }
+.online i { background:#72d879; border-radius:50%; box-shadow:0 0 10px #72d879; height:8px; width:8px; }
+.online,.collection-button { font-family:'Courier Prime'; font-size:12px; }
+.online span { color:rgba(255,255,255,.52); }
+.collection-button { justify-self:end; padding:5px; text-shadow:0 2px 9px #000; }
+.collection-button span { margin:0 6px; }
+
+.center-stage { margin:0 auto; max-width:720px; text-align:center; }
+.kicker,.years { color:rgba(255,255,255,.48); font-family:'Courier Prime'; font-size:10px; letter-spacing:.24em; text-transform:uppercase; }
+.kicker { margin:0 0 11px; }
+.center-stage h1 { font-family:'Bebas Neue'; font-size:clamp(92px,14vw,190px); font-weight:400; letter-spacing:.08em; line-height:.76; margin:0; text-shadow:0 5px 35px rgba(0,0,0,.75); }
+.center-stage h1 small { color:rgba(255,255,255,.46); display:block; font-size:.44em; letter-spacing:.55em; margin:10px 0 0 .55em; }
+.hindi { font-family:'Yatra One'; font-size:clamp(18px,2.1vw,25px); margin:28px 0 0; text-shadow:0 0 19px rgba(242,172,69,.5),0 2px 8px #000; }
+.years { margin:10px 0 0; }
+
+/* Text-Based Hero Action Links */
+.text-actions { display:flex; gap:20px; justify-content:center; margin-top:28px; }
+.text-action-btn { background:none; border:none; color:#efe5d0; font-family:'Courier Prime', monospace; font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; text-shadow:0 2px 10px #000; transition:all 0.2s ease; padding:4px 8px; }
+.play-something-link { border-bottom:2px dashed #f6b93c; color:#f6b93c; }
+.play-something-link:hover { color:#fff; border-bottom-style:solid; }
+.rewind-link { opacity:0.8; }
+.rewind-link:hover { opacity:1; color:#f6b93c; }
+
+/* Dock & Environment Placement (80% environment, 15% typography, 5% controls) */
+.environment-dock { bottom:0; left:0; padding:20px 28px 24px; position:fixed; right:0; z-index:2; background:linear-gradient(0deg, rgba(0,0,0,0.85) 0%, transparent 100%); }
+
+/* ENVIRONMENT CASSETTE PLAYER (Compact object inside room) */
+.environment-cassette-player { max-width:440px; margin:0 auto; font-family:'Outfit', sans-serif; transition:all 0.3s ease; }
+.environment-cassette-player.is-rewinding { animation:rewindBlur 0.35s ease forwards; }
+
+@keyframes rewindBlur {
+  0% { filter:blur(0px); transform:translateX(0); }
+  50% { filter:blur(4px) opacity(0.6); transform:translateX(-4px); }
+  100% { filter:blur(0px); transform:translateX(0); }
+}
+
+.player-cassette-row { display:flex; gap:16px; align-items:center; }
+
+/* Compact Physical Cassette Graphic */
+.compact-cassette { width:120px; height:78px; flex-shrink:0; }
+.cassette-shell { width:100%; height:100%; background:#14100e; border:1px solid #332b25; border-radius:7px; padding:5px; position:relative; box-shadow:0 6px 20px rgba(0,0,0,0.7); display:flex; flex-direction:column; justify-content:space-between; }
+.pin { position:absolute; width:4px; height:4px; border-radius:50%; background:#4a4038; }
+.pin.top-left { top:3px; left:3px; }
+.pin.top-right { top:3px; right:3px; }
+.pin.bottom-left { bottom:3px; left:3px; }
+.pin.bottom-right { bottom:3px; right:3px; }
+
+.paper-sticker { background:#efe5d0; border-radius:4px; padding:3px 5px; color:#1a1410; }
+.sticker-brand { display:flex; justify-content:space-between; font-family:'Bebas Neue', sans-serif; font-size:10px; color:#e11d48; line-height:1; }
+.side-mark { color:#66584b; }
+.sticker-song-title { font-family:'Courier Prime', monospace; font-size:7px; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin-top:2px; color:#14100e; }
+
+.cassette-window { background:#080605; border:1px solid #221c17; border-radius:4px; height:24px; display:flex; align-items:center; justify-content:space-between; padding:0 8px; position:relative; }
+.tape-line { position:absolute; left:20px; right:20px; height:8px; background:#2d2218; opacity:0.8; }
+.spool-hub { width:16px; height:16px; border-radius:50%; background:#efe5d0; border:2px solid #080605; position:relative; z-index:1; display:flex; align-items:center; justify-content:center; }
+.hub-center { width:7px; height:7px; border-radius:50%; background:#080605; }
+.spool-hub.spinning { animation:spoolSpin 2s linear infinite; }
+@keyframes spoolSpin { from { transform:rotate(0deg); } to { transform:rotate(360deg); } }
+
+/* Compact Now Playing Column */
+.compact-now-playing { flex:1; min-width:0; }
+.status-indicator { display:flex; align-items:center; gap:5px; font-family:'Courier Prime', monospace; font-size:8px; letter-spacing:.14em; color:rgba(239,229,208,.5); margin-bottom:2px; }
+.status-dot { width:5px; height:5px; border-radius:50%; background:#66584b; }
+.status-dot.is-active { background:#72d879; box-shadow:0 0 6px #72d879; }
+
+.compact-track-title { font-family:'Bebas Neue', sans-serif; font-size:22px; letter-spacing:.05em; line-height:1; margin:0 0 2px; color:#efe5d0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; text-shadow:0 2px 8px rgba(0,0,0,.8); }
+.compact-track-sub { font-family:'Outfit', sans-serif; font-size:10px; color:rgba(239,229,208,.6); display:flex; gap:4px; align-items:center; }
+.compact-track-sub .sep { opacity:.4; font-size:7px; }
+
+.tiny-spotify-link { display:inline-block; font-family:'Courier Prime', monospace; font-size:9px; color:rgba(239,229,208,.5); text-decoration:none; margin-top:3px; transition:color 0.2s ease; }
+.tiny-spotify-link:hover { color:#e11d48; text-decoration:underline; }
+
+/* Tiny Analog Tape Counter Line */
+.tiny-tape-timeline { display:flex; align-items:center; gap:8px; margin:10px 0 8px; cursor:pointer; }
+.tiny-time { font-family:'Courier Prime', monospace; font-size:9px; color:rgba(239,229,208,.5); min-width:28px; }
+.tiny-line { flex:1; height:2px; background:rgba(239,229,208,.15); position:relative; border-radius:1px; }
+.tiny-fill { height:100%; background:#e11d48; border-radius:1px; }
+.tiny-dot { position:absolute; top:50%; width:7px; height:7px; border-radius:50%; background:#efe5d0; transform:translate(-50%,-50%); box-shadow:0 0 4px #e11d48; }
+
+/* Minimal 3-Button Controls */
+.minimal-controls { display:flex; justify-content:center; gap:16px; align-items:center; }
+.ctrl-btn { background:none; border:none; color:rgba(239,229,208,.7); font-family:'Courier Prime', monospace; font-size:14px; padding:2px 8px; transition:all 0.15s ease; }
+.ctrl-btn:hover { color:#fff; }
+.ctrl-btn:active { transform:scale(0.92); }
+.play-btn { font-size:16px; color:#efe5d0; font-weight:700; }
+
+/* Handwritten Text-Based Dot-Separated Navigation */
+.handwritten-text-nav { display:flex; flex-wrap:wrap; justify-content:center; gap:6px 8px; margin-top:14px; font-family:'Courier Prime', monospace; font-size:10px; letter-spacing:.08em; text-transform:uppercase; text-shadow:0 2px 8px #000; }
+.nav-item-wrapper { display:inline-flex; align-items:center; gap:8px; }
+.text-nav-btn { background:none; border:none; color:rgba(239,229,208,.5); padding:0; transition:color 0.2s ease; }
+.text-nav-btn:hover { color:#fff; }
+.text-nav-btn.active { color:#f6b93c; font-weight:700; text-decoration:underline; }
+.nav-dot { color:rgba(239,229,208,.3); font-size:8px; }
+
+/* Overlay Modal for Spotify Player */
+.overlay { align-items:center; background:rgba(0,0,0,.88); backdrop-filter:blur(12px); display:flex; inset:0; justify-content:center; padding:20px; position:fixed; z-index:11; }
+.video-box { background:#080808; border:1px solid rgba(255,255,255,.14); box-shadow:0 25px 90px #000; max-width:950px; width:100%; }
+.video-box>div { align-items:center; display:flex; font-family:'Courier Prime'; font-size:12px; justify-content:space-between; padding:13px 15px; }
+.video-box button { background:none; border:0; color:#fff; font-size:24px; line-height:1; }
+.spotify-box { max-width:590px; }
+
+.collection-button select { appearance:none; background:transparent; border:0; color:#fff; font:inherit; max-width:190px; outline:none; text-shadow:inherit; }
+.collection-button option { background:#1b1714; }
+
+@media (max-width:600px) {
+  .saloon-page { padding:70px 16px 170px; }
+  .top { padding:17px; grid-template-columns:1fr 1fr; }
+  .online { display:none; }
+  .collection-button span { display:none; }
+  .center-stage h1 { font-size:25vw; }
+  .hindi { font-size:18px; }
+  .text-actions { flex-direction:column; gap:10px; }
+  .environment-dock { padding:14px 14px 16px; }
+  .player-cassette-row { gap:12px; }
+  .compact-cassette { width:95px; height:64px; }
+  .compact-track-title { font-size:18px; }
+}
+
+@media (prefers-reduced-motion:reduce) {
+  * { scroll-behavior:auto!important; transition:none!important; animation:none!important; }
+}
