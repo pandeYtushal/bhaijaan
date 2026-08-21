@@ -5,8 +5,9 @@ import ProgressBar from './ProgressBar';
 import PlayerControls from './PlayerControls';
 
 export function MusicPlayer({
-  track,
+  mode,
   playlist,
+  track,
   isPlaying,
   isLoading,
   playbackProgress,
@@ -16,20 +17,23 @@ export function MusicPlayer({
   onPrevious,
   onSeek,
 }) {
-  if (!track) return null;
+  if (!playlist) return null;
+
+  const cassetteTitle = track?.title || playlist?.name || 'BHAIJAAN';
 
   return (
     <div className={`environment-cassette-player ${isRewinding ? 'is-rewinding' : ''}`}>
       <div className="player-cassette-row">
         {/* Physical Cassette Object */}
-        <Cassette isPlaying={isPlaying} trackTitle={track.title} />
+        <Cassette isPlaying={isPlaying} trackTitle={cassetteTitle} />
 
         {/* Compact Metadata Column */}
         <NowPlaying
+          mode={mode}
+          playlist={playlist}
           track={track}
           isPlaying={isPlaying}
           isLoading={isLoading}
-          spotifyUrl={playlist?.spotifyUrl}
         />
       </div>
 

@@ -83,17 +83,48 @@ export const SpotifyEmbed = forwardRef(function SpotifyEmbed({ initialPlaylistUr
           });
 
           EmbedController.addListener('playback_update', (e) => {
-            console.log('[BHAIJAAN] PLAYBACK UPDATE:', e.data);
+            console.log('[BHAIJAAN] PLAYBACK UPDATE FROM SPOTIFY:', e.data);
+            
+            const rawTrack = e.data?.track;
+            const playingUri = e.data?.playingURI || rawTrack?.uri;
+
+            let extractedTrack = null;
+            if (rawTrack) {
+              const artistName = typeof rawTrack.artist === 'string'
+                ? rawTrack.artist
+                : rawTrack.artist?.name || rawTrack.artists?.[0]?.name || 'Salman Khan';
+              
+              const albumTitle = typeof rawTrack.album === 'string'
+                ? rawTrack.album
+                : rawTrack.album?.name || '';
+
+              extractedTrack = {
+                title: rawTrack.name || rawTrack.title || 'Spotify Track',
+                film: albumTitle || 'Salman Khan Hits',
+                singers: artistName ? [artistName] : ['Salman Khan'],
+                spotifyUri: playingUri
+              };
+            }
+
             playbackChangeRef.current?.({
               isPaused: e.data?.isPaused,
               position: e.data?.position,
               duration: e.data?.duration,
-              playingUri: e.data?.playingURI || e.data?.track?.uri
+              playingUri: playingUri,
+              trackInfo: extractedTrack
             });
           });
 
           EmbedController.addListener('playback_started', (e) => {
             console.log('[BHAIJAAN] PLAYBACK STARTED:', e);
+          });
+
+          // Distinct Spotify Embed Error Listener
+          EmbedController.addListener('error', (err) => {
+            console.error('[BHAIJAAN] Spotify Embed Error:', err);
+            playbackChangeRef.current?.({
+              error: err?.message || 'Spotify embed error'
+            });
           });
         };
 

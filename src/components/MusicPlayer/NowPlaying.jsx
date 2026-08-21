@@ -1,61 +1,46 @@
 import React from 'react';
-import { resolveTrack } from '../../spotify/trackResolver';
 
-export function NowPlaying({ track, isPlaying, isLoading, spotifyUrl }) {
-  if (!track) return null;
+export function NowPlaying({ mode, playlist, track, isPlaying, isLoading }) {
+  const modeName = mode?.label || mode?.name || playlist?.name || 'BHAI MODE';
 
-  const resolution = resolveTrack(track);
-  const isAvailable = resolution.matched;
-  const targetUrl = spotifyUrl || resolution.spotifyUrl;
+  const displayTrack = track || playlist?.initialTrack;
+
+  const trackTitle = isLoading
+    ? 'LOADING TAPE...'
+    : displayTrack?.title || '';
+
+  const subtitle = displayTrack?.film
+    ? `${displayTrack.singers ? displayTrack.singers.join(', ') : displayTrack.artist || 'Salman Khan'} · ${displayTrack.film} ${displayTrack.year ? `· ${displayTrack.year}` : ''}`
+    : playlist?.subtitle || 'Spotify · Official Playlist';
 
   return (
     <div className="compact-now-playing">
+      {/* Category / Mode Label with Active Status Indicator */}
       <div className="status-indicator">
         <span className={`status-dot ${isPlaying ? 'is-active' : ''}`} />
-        <span>
-          {isLoading
-            ? 'LOADING TAPE...'
-            : isAvailable
-            ? isPlaying
-              ? 'PLAYING'
-              : 'PAUSED'
-            : 'NOT AVAILABLE ON SPOTIFY'}
-        </span>
+        <span>{modeName} • {isPlaying ? 'PLAYING' : 'PAUSED'}</span>
       </div>
 
-      <h2 className="compact-track-title">{track.title}</h2>
+      {/* Large Actual Track Title (NEVER mode name or "SELECT A TRACK") */}
+      <h2 className="compact-track-title">{trackTitle}</h2>
 
+      {/* Metadata Subtitle (Artist · Film · Year) */}
       <div className="compact-track-sub">
-        <span>{track.film}</span>
-        <span className="sep">·</span>
-        <span>{track.year}</span>
+        <span>{subtitle}</span>
       </div>
 
-      {isAvailable ? (
-        <a
-          href={targetUrl || 'https://open.spotify.com'}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="tiny-spotify-link"
-          onClick={(e) => {
-            e.stopPropagation();
-          }}
-        >
-          LISTEN ON SPOTIFY →
-        </a>
-      ) : (
-        <a
-          href={`https://open.spotify.com/search/${encodeURIComponent(`${track.title} ${track.film}`)}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="tiny-spotify-link unavailable-link"
-          onClick={(e) => {
-            e.stopPropagation();
-          }}
-        >
-          SEARCH ON SPOTIFY →
-        </a>
-      )}
+      {/* External Spotify Link */}
+      <a
+        href={playlist?.spotifyUrl || 'https://open.spotify.com'}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="tiny-spotify-link"
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
+      >
+        LISTEN ON SPOTIFY →
+      </a>
     </div>
   );
 }
