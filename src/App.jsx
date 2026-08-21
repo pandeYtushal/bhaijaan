@@ -96,7 +96,7 @@ export default function App() {
     });
   }, []);
 
-  // Play Exact Track Function with Resolution & Race Condition Protection
+  // Play Exact Track or Fallback Playlist Entity
   const playExactSong = useCallback((targetSong, targetPlaylist = null, autoStart = true) => {
     if (!targetSong) return;
     const requestId = ++requestIdRef.current;
@@ -109,31 +109,25 @@ export default function App() {
 
     triggerRewindEffect();
 
-    // Mark as requested and loading
     setPlaybackState((prev) => ({
       ...prev,
       playlist: activePlaylist,
       requestedSong: targetSong,
+      currentSong: targetSong,
       isLoading: true,
       error: resolution.matched ? null : resolution.reason
     }));
 
-    if (!resolution.matched) {
-      console.warn('[BHAIJAAN] Track unverified on Spotify:', resolution.reason);
-      setPlaybackState((prev) => ({ ...prev, isLoading: false }));
-      return;
+    if (resolution.matched) {
+      console.log('[BHAIJAAN] Loading exact spotifyUri:', resolution.spotifyUri);
+      spotifyController.loadEntity(resolution.spotifyUri);
+    } else {
+      console.log('[BHAIJAAN] Song has no verified track URI, loading playlist context:', activePlaylist.spotifyUrl);
+      spotifyController.loadEntity(activePlaylist.spotifyUrl);
     }
 
-    // Load exact track URI into persistent Spotify Controller
-    console.log('[BHAIJAAN] Loading exact spotifyUri:', resolution.spotifyUri);
-    spotifyController.loadEntity(resolution.spotifyUri);
-
     if (autoStart) {
-      setTimeout(() => {
-        if (requestId === requestIdRef.current) {
-          spotifyController.play();
-        }
-      }, 300);
+      spotifyController.play();
     }
   }, [playbackState.playlist, triggerRewindEffect]);
 
@@ -145,8 +139,7 @@ export default function App() {
 
   const takeMeBack = useCallback(() => {
     console.log('[BHAIJAAN] TAKE ME BACK TRIGGERED');
-    // Filter songs with verified Spotify URIs
-    const verifiedSongs = SONGS.filter((s) => resolveTrack(s).matched);
+    const verifiedSongs = SONGS.filter((s) => s.spotifyUri !== null && s.spotifyUri !== undefined);
     if (verifiedSongs.length === 0) return;
 
     const randomSong = verifiedSongs[Math.floor(Math.random() * verifiedSongs.length)];
@@ -214,7 +207,7 @@ export default function App() {
       <div className="shade" />
       <div className="noise" />
 
-      {/* Persistent Background Spotify Embed Container (Mounts ONCE on startup) */}
+      {/* Persistent Off-Screen Spotify Embed Container */}
       <div
         className="hidden-spotify-container"
         style={{

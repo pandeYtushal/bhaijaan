@@ -57,6 +57,14 @@ class SpotifyControllerManager {
     this.controller = controller;
     console.log('[BHAIJAAN] SPOTIFY CONTROLLER: Ready and persistent');
     this.notifyListeners('ready', { controller });
+
+    if (this.currentUri) {
+      try {
+        if (typeof this.controller.loadUri === 'function') {
+          this.controller.loadUri(this.currentUri);
+        }
+      } catch (e) {}
+    }
   }
 
   addListener(callback) {
@@ -126,15 +134,11 @@ class SpotifyControllerManager {
 
   loadEntity(urlOrUri) {
     const uri = getSpotifyUri(urlOrUri);
-    if (this.currentUri === uri) {
-      console.log('[BHAIJAAN] Entity already loaded:', uri);
-      return;
-    }
     this.currentUri = uri;
-    console.log('[BHAIJAAN] LOADING PLAYLIST / ENTITY:', uri);
+    console.log('[BHAIJAAN] LOADING ENTITY:', uri);
 
     if (!this.controller) {
-      console.warn('[BHAIJAAN] SPOTIFY CONTROLLER: Not ready yet, queuing loadEntity');
+      console.warn('[BHAIJAAN] SPOTIFY CONTROLLER: Not ready yet');
       return;
     }
 
