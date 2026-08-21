@@ -8,6 +8,7 @@ export function MusicPlayer({
   track,
   playlist,
   isPlaying,
+  isLoading,
   playbackProgress,
   isRewinding,
   onToggle,
@@ -27,6 +28,7 @@ export function MusicPlayer({
         <NowPlaying
           track={track}
           isPlaying={isPlaying}
+          isLoading={isLoading}
           spotifyUrl={playlist?.spotifyUrl}
         />
       </div>

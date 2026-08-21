@@ -1,9 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { playlists, PLAYLISTS } from './data/playlists';
+import { SONGS } from './data/songs';
+import { PLAYLISTS, playlists } from './data/playlists';
 import { MOODS } from './data/moods';
 import { MusicPlayer } from './components/MusicPlayer/MusicPlayer';
 import { SpotifyEmbed } from './components/SpotifyEmbed';
 import { spotifyController } from './utils/spotifyController';
+import { resolveTrack } from './spotify/trackResolver';
 import { audioFX } from './utils/audioFX';
 
 function isTypingTarget(target) {
@@ -12,7 +14,6 @@ function isTypingTarget(target) {
   return tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || target.isContentEditable;
 }
 
-// Map mood IDs directly to playlists with unique Spotify URLs
 function getPlaylistForMood(moodId) {
   switch (moodId) {
     case 'ROMANCE':
@@ -22,7 +23,6 @@ function getPlaylistForMood(moodId) {
       return playlists.bhaiMode;
     case 'NOSTALGIA':
     case '90s RADIO':
-    case '90s':
       return playlists.nineties;
     case '2000s':
     case '2000s KID':
@@ -35,11 +35,12 @@ function getPlaylistForMood(moodId) {
 }
 
 export default function App() {
-  // Single Canonical Playback State
+  // Canonical Playback & Track State
   const [playbackState, setPlaybackState] = useState({
     modeId: 'ALL',
     playlist: PLAYLISTS[0],
-    currentTrack: PLAYLISTS[0].tracks[0],
+    currentSong: SONGS[0],
+    requestedSong: SONGS[0],
     isPlaying: false,
     isLoading: false,
     position: 0,
@@ -51,7 +52,7 @@ export default function App() {
   const [isRewinding, setIsRewinding] = useState(false);
 
   const spotifyRef = useRef(null);
-  const switchRequestRef = useRef(0);
+  const requestIdRef = useRef(0);
 
   const triggerRewindEffect = useCallback(() => {
     audioFX.playFilmBurn();
@@ -63,6 +64,7 @@ export default function App() {
     }, 350);
   }, []);
 
+  // Single event subscription handler — updates currentSong ONLY when Spotify confirms playingURI
   const handlePlaybackChange = useCallback((data) => {
     setPlaybackState((prev) => {
       const isPaused = typeof data.isPaused === 'boolean' ? data.isPaused : !prev.isPlaying;
@@ -70,13 +72,16 @@ export default function App() {
       const position = Number.isFinite(data.position) ? Math.round(data.position / 1000) : prev.position;
       const duration = Number.isFinite(data.duration) ? Math.round(data.duration / 1000) : prev.duration;
       
-      let matchedTrack = prev.currentTrack;
+      let confirmedSong = prev.currentSong;
+
       if (data.playingUri) {
-        console.log('[BHAIJAAN] PLAYING URI:', data.playingUri);
-        const found = prev.playlist.tracks.find(t => t.spotifyUri === data.playingUri || t.id === data.playingUri);
-        if (found) {
-          console.log('[BHAIJAAN] CURRENT SONG MATCHED:', found.title);
-          matchedTrack = found;
+        console.log('[BHAIJAAN] Spotify confirmed playingURI:', data.playingUri);
+        const match = SONGS.find(
+          (s) => s.spotifyUri === data.playingUri || s.id === data.playingUri
+        );
+        if (match) {
+          console.log('[BHAIJAAN] Confirmed exact song:', match.title);
+          confirmedSong = match;
         }
       }
 
@@ -86,116 +91,98 @@ export default function App() {
         isLoading: false,
         position,
         duration,
-        currentTrack: matchedTrack
+        currentSong: confirmedSong
       };
     });
   }, []);
 
-  // Central Mode / Playlist Change Function with Rapid Click Protection
-  const changeMode = useCallback((targetPlaylist, targetTrack = null, autoStart = false) => {
-    if (!targetPlaylist) return;
-    const selectedTrack = targetTrack || targetPlaylist.tracks[0];
-    const requestId = ++switchRequestRef.current;
+  // Play Exact Track Function with Resolution & Race Condition Protection
+  const playExactSong = useCallback((targetSong, targetPlaylist = null, autoStart = true) => {
+    if (!targetSong) return;
+    const requestId = ++requestIdRef.current;
 
-    console.log('[BHAIJAAN] SWITCH REQUEST ID:', requestId);
-    console.log('[BHAIJAAN] MODE CHANGE:', targetPlaylist.name);
-    console.log('[BHAIJAAN] LOADING PLAYLIST URL:', targetPlaylist.spotifyUrl);
+    console.log('[BHAIJAAN] REQUEST ID:', requestId);
+    console.log('[BHAIJAAN] PLAY EXACT SONG:', targetSong.title, targetSong.film);
+
+    const resolution = resolveTrack(targetSong);
+    const activePlaylist = targetPlaylist || playbackState.playlist;
 
     triggerRewindEffect();
 
-    // Prevent stale song display while new mode/playlist loads
+    // Mark as requested and loading
     setPlaybackState((prev) => ({
       ...prev,
-      playlist: targetPlaylist,
-      currentTrack: selectedTrack,
+      playlist: activePlaylist,
+      requestedSong: targetSong,
       isLoading: true,
-      error: null
+      error: resolution.matched ? null : resolution.reason
     }));
 
-    // Dynamically load the new playlist entity into the persistent Spotify Controller
-    spotifyController.loadEntity(targetPlaylist.spotifyUrl);
+    if (!resolution.matched) {
+      console.warn('[BHAIJAAN] Track unverified on Spotify:', resolution.reason);
+      setPlaybackState((prev) => ({ ...prev, isLoading: false }));
+      return;
+    }
+
+    // Load exact track URI into persistent Spotify Controller
+    console.log('[BHAIJAAN] Loading exact spotifyUri:', resolution.spotifyUri);
+    spotifyController.loadEntity(resolution.spotifyUri);
 
     if (autoStart) {
       setTimeout(() => {
-        if (requestId === switchRequestRef.current) {
+        if (requestId === requestIdRef.current) {
           spotifyController.play();
         }
       }, 300);
     }
-  }, [triggerRewindEffect]);
+  }, [playbackState.playlist, triggerRewindEffect]);
+
+  const selectMode = useCallback((targetPlaylist, autoStart = true) => {
+    if (!targetPlaylist) return;
+    const firstSong = SONGS.find(s => targetPlaylist.tracks.some(t => t.id === s.id)) || SONGS[0];
+    playExactSong(firstSong, targetPlaylist, autoStart);
+  }, [playExactSong]);
 
   const takeMeBack = useCallback(() => {
     console.log('[BHAIJAAN] TAKE ME BACK TRIGGERED');
-    const randomPi = Math.floor(Math.random() * PLAYLISTS.length);
-    const randomPlaylist = PLAYLISTS[randomPi];
-    const randomTi = Math.floor(Math.random() * randomPlaylist.tracks.length);
+    // Filter songs with verified Spotify URIs
+    const verifiedSongs = SONGS.filter((s) => resolveTrack(s).matched);
+    if (verifiedSongs.length === 0) return;
 
-    changeMode(randomPlaylist, randomPlaylist.tracks[randomTi], true);
-  }, [changeMode]);
-
-  const choosePlaylist = (pi, start = false) => {
-    audioFX.playClick();
-    const targetPlaylist = PLAYLISTS[pi];
-    changeMode(targetPlaylist, targetPlaylist.tracks[0], start);
-  };
-
-  const triggerBhaiMode = useCallback(() => {
-    audioFX.playBhaiMode();
-    setPlaybackState(prev => ({ ...prev, modeId: 'BHAI MODE' }));
-    changeMode(playlists.bhaiMode, playlists.bhaiMode.tracks[0], true);
-  }, [changeMode]);
+    const randomSong = verifiedSongs[Math.floor(Math.random() * verifiedSongs.length)];
+    playExactSong(randomSong, playbackState.playlist, true);
+  }, [playExactSong, playbackState.playlist]);
 
   const handleMoodClick = useCallback((mood) => {
     audioFX.playClick();
     const moodId = typeof mood === 'object' ? mood.id : mood;
-    setPlaybackState(prev => ({ ...prev, modeId }));
+    setPlaybackState((prev) => ({ ...prev, modeId }));
     
     if (moodId === 'BHAI MODE') {
-      triggerBhaiMode();
+      audioFX.playBhaiMode();
+      selectMode(playlists.bhaiMode, true);
       return;
     }
 
     const targetPlaylist = getPlaylistForMood(moodId);
-    changeMode(targetPlaylist, targetPlaylist.tracks[0], true);
-  }, [changeMode, triggerBhaiMode]);
+    selectMode(targetPlaylist, true);
+  }, [selectMode]);
 
   const next = useCallback(() => {
     audioFX.playClick();
-    const tracks = playbackState.playlist.tracks;
-    const currentIdx = tracks.findIndex(t => t.id === playbackState.currentTrack.id);
-    const nextIdx = (currentIdx + 1) % tracks.length;
-    const nextTrack = tracks[nextIdx];
-    
-    setPlaybackState(prev => ({
-      ...prev,
-      currentTrack: nextTrack
-    }));
-
-    if (nextTrack.spotifyUri && nextTrack.spotifyUri.startsWith('spotify:track:')) {
-      spotifyController.loadEntity(nextTrack.spotifyUri);
-    } else {
-      spotifyController.next();
-    }
-  }, [playbackState.playlist.tracks, playbackState.currentTrack.id]);
+    const currentIdx = SONGS.findIndex((s) => s.id === playbackState.currentSong.id);
+    const nextIdx = (currentIdx + 1) % SONGS.length;
+    const nextSong = SONGS[nextIdx];
+    playExactSong(nextSong, playbackState.playlist, true);
+  }, [playbackState.currentSong.id, playbackState.playlist, playExactSong]);
 
   const previous = useCallback(() => {
     audioFX.playClick();
-    const tracks = playbackState.playlist.tracks;
-    const currentIdx = tracks.findIndex(t => t.id === playbackState.currentTrack.id);
-    const prevIdx = (currentIdx - 1 + tracks.length) % tracks.length;
-    const prevTrack = tracks[prevIdx];
-    
-    setPlaybackState(prev => ({
-      ...prev,
-      currentTrack: prevTrack
-    }));
-
-    if (prevTrack.spotifyUri && prevTrack.spotifyUri.startsWith('spotify:track:')) {
-      spotifyController.loadEntity(prevTrack.spotifyUri);
-    } else {
-      spotifyController.previous();
-    }
-  }, [playbackState.playlist.tracks, playbackState.currentTrack.id]);
+    const currentIdx = SONGS.findIndex((s) => s.id === playbackState.currentSong.id);
+    const prevIdx = (currentIdx - 1 + SONGS.length) % SONGS.length;
+    const prevSong = SONGS[prevIdx];
+    playExactSong(prevSong, playbackState.playlist, true);
+  }, [playbackState.currentSong.id, playbackState.playlist, playExactSong]);
 
   const toggle = useCallback(() => {
     audioFX.playClick();
@@ -227,7 +214,7 @@ export default function App() {
       <div className="shade" />
       <div className="noise" />
 
-      {/* Persistent Off-Screen Spotify iFrame Embed (Mounts ONCE on application startup) */}
+      {/* Persistent Background Spotify Embed Container (Mounts ONCE on startup) */}
       <div
         className="hidden-spotify-container"
         style={{
@@ -254,7 +241,7 @@ export default function App() {
         <button
           type="button"
           className="logo"
-          onClick={() => choosePlaylist(0, false)}
+          onClick={() => selectMode(PLAYLISTS[0], false)}
           aria-label="BHAIJAAN.WTF home"
         >
           BHAIJAAN<span>.WTF</span>
@@ -265,7 +252,7 @@ export default function App() {
           <select
             aria-label="Playlist"
             value={PLAYLISTS.findIndex(p => p.id === playbackState.playlist.id)}
-            onChange={(event) => choosePlaylist(Number(event.target.value), true)}
+            onChange={(event) => selectMode(PLAYLISTS[Number(event.target.value)], true)}
           >
             {PLAYLISTS.map((list, index) => (
               <option key={list.id} value={index}>{list.name}</option>
@@ -292,12 +279,13 @@ export default function App() {
         </div>
       </section>
 
-      {/* Environment Cassette Object Player Dock (15-20% footprint) */}
+      {/* Environment Cassette Object Player Dock */}
       <section className="dock environment-dock" aria-label="Player">
         <MusicPlayer
-          track={playbackState.currentTrack}
+          track={playbackState.currentSong}
           playlist={playbackState.playlist}
           isPlaying={playbackState.isPlaying}
+          isLoading={playbackState.isLoading}
           playbackProgress={{ current: playbackState.position, duration: playbackState.duration }}
           isRewinding={isRewinding}
           onToggle={toggle}
