@@ -685,10 +685,10 @@ button {
     box-shadow: 0 0 8px #f6b93c;
   }
 
-  /* Player Dock - Hand Friendly Upper Floating Position */
+  /* Player Dock - Floating lower above bottom mode bar */
   .environment-dock {
     position: fixed;
-    bottom: max(160px, calc(140px + env(safe-area-inset-bottom)));
+    bottom: max(80px, calc(64px + env(safe-area-inset-bottom)));
     left: 0;
     right: 0;
     padding: 0 18px;
