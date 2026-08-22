@@ -25,6 +25,42 @@ class SpotifySDKManager {
     this.isInitializing = false;
     this.listeners = new Set();
     this.currentContextUri = null;
+
+    // Visibility Resync: Listen for tab visibility return to synchronize UI with Spotify state
+    if (typeof document !== 'undefined') {
+      document.addEventListener('visibilitychange', async () => {
+        if (!document.hidden && this.player) {
+          // DO NOT resume/pause manually. Only synchronize UI with actual Spotify state.
+          await this.resyncState();
+        }
+      });
+    }
+  }
+
+  async getCurrentState() {
+    if (!this.player || typeof this.player.getCurrentState !== 'function') return null;
+    try {
+      return await this.player.getCurrentState();
+    } catch (e) {
+      console.warn('[BHAIJAAN] getCurrentState error:', e);
+      return null;
+    }
+  }
+
+  async resyncState() {
+    const state = await this.getCurrentState();
+    if (!state) return;
+    const track = state.track_window?.current_track;
+    this.notifyListeners('player_state_changed', {
+      state,
+      track,
+      isPlaying: !state.paused,
+      position: state.position,
+      duration: state.duration,
+      disallows: state.disallows || {},
+      nextTracks: state.track_window?.next_tracks,
+      previousTracks: state.track_window?.previous_tracks
+    });
   }
 
   init(tokenOverride = null) {

@@ -220,6 +220,13 @@ export default function App() {
           onSeek={handleSeek}
         />
       </section>
+
+      {/* Site Footer */}
+      <footer className="saloon-footer">
+        <p className="footer-credits">
+          Made by <a href="https://tushal-pandey.vercel.app/" target="_blank" rel="noopener noreferrer" className="footer-link">Tushal Pandey</a>
+        </p>
+      </footer>
     </main>
   );
 }
