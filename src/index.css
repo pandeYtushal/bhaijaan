@@ -61,8 +61,10 @@ button {
 
 .photo {
   background: url('/bg-bhaijaan-room.jpg') center/cover no-repeat;
-  filter: brightness(.95) saturate(1.05) contrast(1.02);
-  transform: scale(1.04);
+  filter: brightness(.92) saturate(1.06) contrast(1.04);
+  transform: scale(1.04) translateZ(0);
+  image-rendering: -webkit-optimize-contrast;
+  backface-visibility: hidden;
   z-index: -3;
   animation: slowDrift 25s ease-in-out infinite alternate;
 }
