@@ -5,7 +5,7 @@ export function PlayerControls({ isPlaying, onToggle, onNext, onPrevious }) {
     <div className="minimal-controls">
       <button
         type="button"
-        className="ctrl-btn"
+        className="ctrl-btn prev-btn"
         onClick={(e) => {
           e.preventDefault();
           e.stopPropagation();
@@ -26,12 +26,12 @@ export function PlayerControls({ isPlaying, onToggle, onNext, onPrevious }) {
         }}
         aria-label={isPlaying ? 'Pause' : 'Play'}
       >
-        {isPlaying ? 'Ⅱ' : '▶'}
+        {isPlaying ? '❚❚' : '▶'}
       </button>
 
       <button
         type="button"
-        className="ctrl-btn"
+        className="ctrl-btn next-btn"
         onClick={(e) => {
           e.preventDefault();
           e.stopPropagation();

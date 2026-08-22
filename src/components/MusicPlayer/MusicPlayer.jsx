@@ -1,5 +1,4 @@
 import React from 'react';
-import Cassette from './Cassette';
 import NowPlaying from './NowPlaying';
 import ProgressBar from './ProgressBar';
 import PlayerControls from './PlayerControls';
@@ -19,32 +18,25 @@ export function MusicPlayer({
 }) {
   if (!playlist) return null;
 
-  const cassetteTitle = track?.title || playlist?.name || 'BHAIJAAN';
-
   return (
     <div className={`environment-cassette-player ${isRewinding ? 'is-rewinding' : ''}`}>
-      <div className="player-cassette-row">
-        {/* Physical Cassette Object */}
-        <Cassette isPlaying={isPlaying} trackTitle={cassetteTitle} />
+      {/* Song info — just text floating */}
+      <NowPlaying
+        mode={mode}
+        playlist={playlist}
+        track={track}
+        isPlaying={isPlaying}
+        isLoading={isLoading}
+      />
 
-        {/* Compact Metadata Column */}
-        <NowPlaying
-          mode={mode}
-          playlist={playlist}
-          track={track}
-          isPlaying={isPlaying}
-          isLoading={isLoading}
-        />
-      </div>
-
-      {/* Tiny Analog Tape Counter Line */}
+      {/* A single quiet line */}
       <ProgressBar
         current={playbackProgress.current}
         duration={playbackProgress.duration}
         onSeek={onSeek}
       />
 
-      {/* Minimal 3-Button Controls */}
+      {/* Breath-like controls */}
       <PlayerControls
         isPlaying={isPlaying}
         onToggle={onToggle}

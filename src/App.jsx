@@ -147,17 +147,24 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    const key = (event) => {
+    const handleKeyDown = (event) => {
       if (isTypingTarget(event.target)) return;
-      if (event.key === 'ArrowRight') next();
-      if (event.key === 'ArrowLeft') previous();
-      if (event.key === ' ') {
+
+      const code = event.code || event.key;
+      if (code === 'Space' || event.key === ' ' || event.key === 'Spacebar') {
         event.preventDefault();
         toggle();
+      } else if (code === 'ArrowRight' || event.key === 'ArrowRight') {
+        event.preventDefault();
+        next();
+      } else if (code === 'ArrowLeft' || event.key === 'ArrowLeft') {
+        event.preventDefault();
+        previous();
       }
     };
-    window.addEventListener('keydown', key);
-    return () => window.removeEventListener('keydown', key);
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
   }, [next, previous, toggle]);
 
   return (
@@ -170,55 +177,34 @@ export default function App() {
       {/* Hidden YouTube Audio Stream Player */}
       <YouTubePlayer />
 
-      {/* Top Header */}
-      <header className="top">
-        <button
-          type="button"
-          className="logo"
-          onClick={() => changeMode(MOODS[0], PLAYLISTS[0], false)}
-          aria-label="BHAIJAAN.WTF home"
-        >
-          BHAIJAAN<span>.WTF</span>
-        </button>
-        <p className="online"><i /> 1,847 <span>online</span></p>
-        <label className="collection-button">
-          ◉{' '}
-          <select
-            aria-label="Playlist"
-            value={PLAYLISTS.findIndex(p => p.id === activePlaylist.id)}
-            onChange={(event) => {
-              const idx = Number(event.target.value);
-              const targetPlaylist = PLAYLISTS[idx];
-              const targetMood = MOODS.find(m => m.key === targetPlaylist.id) || MOODS[idx] || MOODS[0];
-              changeMode(targetMood, targetPlaylist, true);
-            }}
-          >
-            {PLAYLISTS.map((list, index) => (
-              <option key={list.id} value={index}>{list.name}</option>
-            ))}
-          </select>
-        </label>
-      </header>
 
-      {/* Center Stage Hero */}
+      {/* Center Stage — Emotional Hero with Vertical Mode Dial */}
       <section className="center-stage">
-        <p className="kicker">the soundtrack of the salon</p>
-        <h1>BHAIJAAN<small>.WTF</small></h1>
-        <p className="hindi">हर दौर. हर गाना. हमेशा भाईजान.</p>
-        <p className="years">1989 — ∞</p>
+        <div className="hero-content-wrapper">
+          <div className="hero-main">
+            <h1 className="hero-hindi-title">भाईजान</h1>
+            <p className="hindi">हर दौर. हर गाना. हमेशा भाईजान.</p>
+            <p className="years">1989 — ∞</p>
+          </div>
 
-        {/* Text-Based Hero Action Links */}
-        <div className="actions text-actions">
-          <button type="button" className="text-action-btn play-something-link" onClick={playSomething}>
-            [ ▶ PLAY SOMETHING ]
-          </button>
-          <button type="button" className="text-action-btn rewind-link" onClick={takeMeBack}>
-            ↶ REWIND → TAKE ME BACK
-          </button>
+          {/* Vertical Mode Navigation */}
+          <nav className="vertical-modes-nav" aria-label="Mood navigation">
+            {MOODS.map((mood) => (
+              <button
+                key={mood.id}
+                type="button"
+                className={`vertical-mode-btn ${activeMode.id === mood.id ? 'active' : ''}`}
+                onClick={() => handleMoodClick(mood)}
+              >
+                <span className="mode-indicator-dot" />
+                <span className="mode-label-text">{mood.label}</span>
+              </button>
+            ))}
+          </nav>
         </div>
       </section>
 
-      {/* Environment Cassette Object Player Dock */}
+      {/* Player Dock — Floating Bottom Island */}
       <section className="dock environment-dock" aria-label="Player">
         <MusicPlayer
           mode={activeMode}
@@ -233,24 +219,7 @@ export default function App() {
           onPrevious={previous}
           onSeek={handleSeek}
         />
-
-        {/* Handwritten Text-Based Dot-Separated Navigation */}
-        <nav className="handwritten-text-nav" aria-label="Mood navigation">
-          {MOODS.map((mood, idx) => (
-            <span key={mood.id} className="nav-item-wrapper">
-              <button
-                type="button"
-                className={`text-nav-btn ${activeMode.id === mood.id ? 'active' : ''}`}
-                onClick={() => handleMoodClick(mood)}
-              >
-                {mood.label}
-              </button>
-              {idx < MOODS.length - 1 && <span className="nav-dot">•</span>}
-            </span>
-          ))}
-        </nav>
       </section>
     </main>
   );
 }
-

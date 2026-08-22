@@ -11,6 +11,9 @@ dist
 dist-ssr
 *.local
 .env
+# Song catalogs & music data
+src/data/songs-with-spotify.json
+src/data/songs.js
 spotify-match-report.json
 
 # Editor directories and files

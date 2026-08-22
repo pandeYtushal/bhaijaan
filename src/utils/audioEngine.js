@@ -50,6 +50,9 @@ class SaloonAudioEngine {
 
   onYTPlaybackStateChange(isPlaying) {
     this.isPlaying = isPlaying;
+    if ('mediaSession' in navigator) {
+      navigator.mediaSession.playbackState = isPlaying ? 'playing' : 'paused';
+    }
     if (isPlaying) {
       this.startProgressTimer();
     } else {
@@ -138,6 +141,42 @@ class SaloonAudioEngine {
     this.playTrackAtIndex(targetIndex, autoPlay, initialPosition);
   }
 
+  updateMediaSession(track) {
+    if (!('mediaSession' in navigator) || !track) return;
+
+    try {
+      const singers = Array.isArray(track.singers)
+        ? track.singers.join(', ')
+        : (track.singers || 'Salman Khan');
+
+      const albumTitle = track.film
+        ? `${track.film}${track.year ? ` (${track.year})` : ''}`
+        : 'BHAIJAAN.WTF';
+
+      navigator.mediaSession.metadata = new MediaMetadata({
+        title: track.title || 'BHAIJAAN',
+        artist: singers,
+        album: albumTitle,
+        artwork: [
+          { src: '/favicon.svg', sizes: '96x96', type: 'image/svg+xml' }
+        ]
+      });
+
+      // Background Lockscreen & Notification Controls
+      navigator.mediaSession.setActionHandler('play', () => this.play());
+      navigator.mediaSession.setActionHandler('pause', () => this.pause());
+      navigator.mediaSession.setActionHandler('previoustrack', () => this.previous());
+      navigator.mediaSession.setActionHandler('nexttrack', () => this.next());
+      navigator.mediaSession.setActionHandler('seekto', (details) => {
+        if (details.seekTime !== undefined) {
+          this.seek(details.seekTime);
+        }
+      });
+    } catch (e) {
+      console.warn('[SaloonAudioEngine] MediaSession notice:', e);
+    }
+  }
+
   playTrackAtIndex(index, autoPlay = true, initialPosition = 0) {
     if (!this.currentPlaylist || !this.currentPlaylist.tracks) return;
     const tracks = this.currentPlaylist.tracks;
@@ -148,6 +187,9 @@ class SaloonAudioEngine {
     this.currentTrack = track;
 
     console.log(`[SaloonAudioEngine] Playing track [${validIndex + 1}/${tracks.length}]:`, track.title, `(${track.film})`);
+
+    // Sync Web MediaSession for mobile lock screen & background controls
+    this.updateMediaSession(track);
 
     // Notify listeners immediately for 100% accurate title display on frame 0
     this.notifyListeners('playback_update', {
