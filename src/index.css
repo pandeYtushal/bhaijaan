@@ -590,6 +590,11 @@ button {
 
 /* ─── MOBILE ─── */
 @media (max-width: 600px) {
+  .photo {
+    background: url('/bg-mobile-bhaijaan.jpg') center top / cover no-repeat;
+    filter: brightness(.88) saturate(1.05) contrast(1.02);
+  }
+
   .saloon-page {
     padding: 40px 16px 160px;
     min-height: 100dvh;
