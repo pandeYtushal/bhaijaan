@@ -1,10 +1,9 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
-import { SONGS } from './data/songs';
+import { useCallback, useEffect, useState } from 'react';
 import { playlists, PLAYLISTS } from './data/playlists';
 import { MOODS } from './data/moods';
 import { MusicPlayer } from './components/MusicPlayer/MusicPlayer';
-import { SpotifyEmbed } from './components/SpotifyEmbed';
-import { spotifyController } from './utils/spotifyController';
+import { YouTubePlayer } from './components/YouTubePlayer';
+import { audioEngine } from './utils/audioEngine';
 import { audioFX } from './utils/audioFX';
 
 function isTypingTarget(target) {
@@ -14,97 +13,98 @@ function isTypingTarget(target) {
 }
 
 export default function App() {
-  // Independent States: activeMode, activePlaylist, currentTrack, isPlaying, position, duration
   const [activeMode, setActiveMode] = useState(MOODS[0]);
   const [activePlaylist, setActivePlaylist] = useState(PLAYLISTS[0]);
-  const [currentTrack, setCurrentTrack] = useState(PLAYLISTS[0].initialTrack); // Initial Song Name
+
+  // 100% Canonical playback state from SaloonAudioEngine
+  const [currentTrack, setCurrentTrack] = useState(PLAYLISTS[0].tracks[0]);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [position, setPosition] = useState(0);
-  const [duration, setDuration] = useState(0);
+  const [duration, setDuration] = useState(PLAYLISTS[0].tracks[0].duration || 300);
 
   const [filmFlash, setFilmFlash] = useState(false);
   const [isRewinding, setIsRewinding] = useState(false);
 
-  const spotifyRef = useRef(null);
-
-  // Rewind effect helper
+  // Rewind & Radio Tuning Effect
   const triggerRewindEffect = useCallback(() => {
-    audioFX.playFilmBurn();
+    audioFX.playRadioTuning();
     setIsRewinding(true);
     setFilmFlash(true);
     requestAnimationFrame(() => {
       setTimeout(() => {
         setIsRewinding(false);
         setFilmFlash(false);
-      }, 120);
+      }, 150);
     });
   }, []);
 
-  // Spotify Playback Event Handler — Updates currentTrack from Spotify live events
-  const handlePlaybackChange = useCallback((data) => {
-    if (data.error) {
-      console.error('[BHAIJAAN] Spotify Embed Error:', data.error);
-    }
+  // Listen to SaloonAudioEngine updates (100% accurate song titles & state)
+  useEffect(() => {
+    // Initial load sync - start clean from 0:00
+    audioEngine.loadPlaylist(PLAYLISTS[0], false, false);
 
-    if (typeof data.isPaused === 'boolean') {
-      setIsPlaying(!data.isPaused);
-    }
-    
-    // Live Progress Bar Sync
-    if (Number.isFinite(data.position)) {
-      setPosition(Math.round(data.position / 1000));
-    }
-    if (Number.isFinite(data.duration) && data.duration > 0) {
-      setDuration(Math.round(data.duration / 1000));
-    }
-
-    setIsLoading(false);
-
-    // Update currentTrack strictly when Spotify emits live track metadata
-    if (data.playingUri || data.trackInfo) {
-      const localMatch = data.playingUri
-        ? SONGS.find((s) => s.spotifyUri === data.playingUri || s.id === data.playingUri)
-        : null;
-
-      if (localMatch) {
-        setCurrentTrack(localMatch);
-      } else if (data.trackInfo && data.trackInfo.title) {
-        setCurrentTrack(data.trackInfo);
+    const unsubscribe = audioEngine.addListener((type, data) => {
+      if (type === 'playback_update' || type === 'state_change') {
+        if (typeof data.isPlaying === 'boolean') {
+          setIsPlaying(data.isPlaying);
+        } else if (typeof data.isPaused === 'boolean') {
+          setIsPlaying(!data.isPaused);
+        }
+        if (Number.isFinite(data.position)) {
+          setPosition(data.position);
+        }
+        if (Number.isFinite(data.duration) && data.duration > 0) {
+          setDuration(data.duration);
+        }
+        if (data.trackInfo && data.trackInfo.title) {
+          setCurrentTrack(data.trackInfo);
+        }
+        setIsLoading(false);
       }
-    }
+    });
+
+    return () => unsubscribe();
   }, []);
 
-  // Mode & Playlist Switcher: Sets mode's initial track immediately & syncs with Spotify events
+  // Unlock Web Audio Context on first touch/click anywhere (saloon.wtf mobile auto-resume)
+  useEffect(() => {
+    const handleFirstUserGesture = () => {
+      audioFX.init();
+      audioFX.toggleVinylCrackle(true);
+    };
+    window.addEventListener('click', handleFirstUserGesture, { once: true });
+    window.addEventListener('touchstart', handleFirstUserGesture, { once: true });
+    return () => {
+      window.removeEventListener('click', handleFirstUserGesture);
+      window.removeEventListener('touchstart', handleFirstUserGesture);
+    };
+  }, []);
+
+  // Mode Switcher: Loads Saloon Station Playlist directly
   const changeMode = useCallback((targetMood, targetPlaylist, autoStart = true) => {
     if (!targetPlaylist) return;
     triggerRewindEffect();
 
-    console.log('[BHAIJAAN] LOAD SPOTIFY PLAYLIST:', targetPlaylist.name, targetPlaylist.spotifyUrl);
-
-    const initialSong = targetPlaylist.initialTrack || SONGS[0];
+    console.log('[BHAIJAAN] LOAD SALOON STATION PLAYLIST:', targetPlaylist.name);
 
     setActiveMode(targetMood || MOODS[0]);
     setActivePlaylist(targetPlaylist);
-    setCurrentTrack(initialSong); // Instantly set song name
-    setPosition(0);
-    setDuration(0);
-    setIsLoading(false);
-
-    spotifyController.loadEntity(targetPlaylist.spotifyUrl);
-
-    if (autoStart) {
-      spotifyController.play();
+    if (targetPlaylist.tracks && targetPlaylist.tracks[0]) {
+      setCurrentTrack(targetPlaylist.tracks[0]);
+      setDuration(targetPlaylist.tracks[0].duration || 300);
     }
+    setPosition(0);
+
+    audioEngine.loadPlaylist(targetPlaylist, autoStart, false);
   }, [triggerRewindEffect]);
 
-  // "PLAY SOMETHING": Plays active Spotify playlist
+  // Actions
   const playSomething = useCallback(() => {
-    audioFX.playClick();
+    audioFX.playScissors();
     changeMode(activeMode, activePlaylist, true);
   }, [changeMode, activeMode, activePlaylist]);
 
-  // "TAKE ME BACK": Randomly selects a Spotify playlist mode
   const takeMeBack = useCallback(() => {
     const randomMood = MOODS[Math.floor(Math.random() * MOODS.length)];
     const key = randomMood.key || 'bhaiMode';
@@ -114,7 +114,7 @@ export default function App() {
   }, [changeMode]);
 
   const handleMoodClick = useCallback((mood) => {
-    audioFX.playClick();
+    audioFX.playScissors();
     const moodObj = typeof mood === 'object' ? mood : MOODS.find(m => m.id === mood || m.key === mood);
     const key = moodObj ? moodObj.key : 'bhaiMode';
     const targetPlaylist = playlists[key] || PLAYLISTS[0];
@@ -127,25 +127,23 @@ export default function App() {
   }, [changeMode]);
 
   const next = useCallback(() => {
-    audioFX.playClick();
-    setPosition(0);
-    spotifyController.next();
+    audioFX.playRadioTuning();
+    audioEngine.next();
   }, []);
 
   const previous = useCallback(() => {
-    audioFX.playClick();
-    setPosition(0);
-    spotifyController.previous();
+    audioFX.playRadioTuning();
+    audioEngine.previous();
   }, []);
 
   const toggle = useCallback(() => {
-    audioFX.playClick();
-    spotifyController.togglePlay();
+    setIsPlaying((prev) => !prev);
+    audioEngine.toggle();
   }, []);
 
   const handleSeek = useCallback((seconds) => {
     setPosition(seconds);
-    spotifyController.seek(seconds);
+    audioEngine.seek(seconds);
   }, []);
 
   useEffect(() => {
@@ -169,27 +167,8 @@ export default function App() {
       <div className="shade" />
       <div className="noise" />
 
-      {/* Persistent Background Spotify Embed Container */}
-      <div
-        className="hidden-spotify-container"
-        style={{
-          position: 'fixed',
-          bottom: 0,
-          right: 0,
-          opacity: 0.001,
-          pointerEvents: 'none',
-          zIndex: -1,
-          width: '300px',
-          height: '150px',
-          overflow: 'hidden'
-        }}
-      >
-        <SpotifyEmbed
-          ref={spotifyRef}
-          initialPlaylistUrl={activePlaylist.spotifyUrl}
-          onPlaybackChange={handlePlaybackChange}
-        />
-      </div>
+      {/* Hidden YouTube Audio Stream Player */}
+      <YouTubePlayer />
 
       {/* Top Header */}
       <header className="top">
@@ -274,3 +253,4 @@ export default function App() {
     </main>
   );
 }
+

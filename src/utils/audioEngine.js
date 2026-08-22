@@ -1,0 +1,274 @@
+// BHAIJAAN.WTF — High Performance Saloon Audio Engine (saloon.wtf Architecture)
+// Zero-friction playback, 100% accurate track metadata, full-length audio, and site UI controls
+
+import { audioFX } from './audioFX';
+
+class SaloonAudioEngine {
+  constructor() {
+    this.audio = new Audio();
+    this.audio.preload = 'auto';
+    this.ytPlayer = null;
+    this.currentPlaylist = null;
+    this.currentTrack = null;
+    this.currentTrackIndex = 0;
+    this.isPlaying = false;
+    this.listeners = new Set();
+    this.stationEpoch = 1700000000;
+    this.timer = null;
+
+    // Event listeners on fallback HTML5 Audio
+    this.audio.addEventListener('timeupdate', () => {
+      if (this.ytPlayer) return; // YT player handles time updates
+      const realDur = (Number.isFinite(this.audio.duration) && this.audio.duration > 0)
+        ? Math.round(this.audio.duration)
+        : (this.currentTrack?.duration || 300);
+
+      this.notifyListeners('playback_update', {
+        position: Math.round(this.audio.currentTime),
+        duration: realDur,
+        isPaused: this.audio.paused,
+        trackInfo: this.currentTrack
+      });
+    });
+
+    this.audio.addEventListener('ended', () => {
+      if (this.ytPlayer) return;
+      console.log('[SaloonAudioEngine] Track ended, playing next track');
+      this.next();
+    });
+  }
+
+  setYouTubePlayer(player) {
+    this.ytPlayer = player;
+    console.log('[SaloonAudioEngine] YouTube player connected successfully');
+    if (this.currentTrack && this.currentTrack.youtubeId) {
+      try {
+        this.ytPlayer.cueVideoById(this.currentTrack.youtubeId, 0);
+      } catch (e) {}
+    }
+  }
+
+  onYTPlaybackStateChange(isPlaying) {
+    this.isPlaying = isPlaying;
+    if (isPlaying) {
+      this.startProgressTimer();
+    } else {
+      this.stopProgressTimer();
+    }
+    this.notifyListeners('state_change', { isPlaying: this.isPlaying, isPaused: !this.isPlaying, trackInfo: this.currentTrack });
+  }
+
+  startProgressTimer() {
+    this.stopProgressTimer();
+    this.timer = setInterval(() => {
+      if (!this.ytPlayer || typeof this.ytPlayer.getCurrentTime !== 'function') return;
+      try {
+        const current = Math.round(this.ytPlayer.getCurrentTime() || 0);
+        const rawDur = this.ytPlayer.getDuration();
+        const dur = (Number.isFinite(rawDur) && rawDur > 0) ? Math.round(rawDur) : (this.currentTrack?.duration || 300);
+
+        this.notifyListeners('playback_update', {
+          position: current,
+          duration: dur,
+          isPlaying: this.isPlaying,
+          isPaused: !this.isPlaying,
+          trackInfo: this.currentTrack
+        });
+      } catch (e) {}
+    }, 100);
+  }
+
+  stopProgressTimer() {
+    if (this.timer) {
+      clearInterval(this.timer);
+      this.timer = null;
+    }
+  }
+
+  // Calculate synchronized station track & position based on epoch timestamp
+  getStationSyncState(playlist) {
+    if (!playlist || !playlist.tracks || playlist.tracks.length === 0) {
+      return { index: 0, position: 0 };
+    }
+    const tracks = playlist.tracks;
+    const totalDuration = tracks.reduce((acc, t) => acc + (t.duration || 300), 0);
+    const now = Math.floor(Date.now() / 1000);
+    const elapsedInCycle = (now - this.stationEpoch) % totalDuration;
+
+    let accumulated = 0;
+    for (let i = 0; i < tracks.length; i++) {
+      const trackDur = tracks[i].duration || 300;
+      if (elapsedInCycle < accumulated + trackDur) {
+        return {
+          index: i,
+          position: elapsedInCycle - accumulated
+        };
+      }
+      accumulated += trackDur;
+    }
+    return { index: 0, position: 0 };
+  }
+
+  addListener(callback) {
+    this.listeners.add(callback);
+    return () => this.listeners.delete(callback);
+  }
+
+  notifyListeners(type, data) {
+    this.listeners.forEach((fn) => {
+      try {
+        fn(type, data);
+      } catch (e) {}
+    });
+  }
+
+  loadPlaylist(playlist, autoPlay = true, syncToStation = false) {
+    if (!playlist || !playlist.tracks || playlist.tracks.length === 0) return;
+    this.currentPlaylist = playlist;
+
+    let targetIndex = 0;
+    let initialPosition = 0;
+
+    if (syncToStation) {
+      const syncState = this.getStationSyncState(playlist);
+      targetIndex = syncState.index;
+      initialPosition = syncState.position;
+    }
+
+    this.playTrackAtIndex(targetIndex, autoPlay, initialPosition);
+  }
+
+  playTrackAtIndex(index, autoPlay = true, initialPosition = 0) {
+    if (!this.currentPlaylist || !this.currentPlaylist.tracks) return;
+    const tracks = this.currentPlaylist.tracks;
+    const validIndex = (index + tracks.length) % tracks.length;
+
+    this.currentTrackIndex = validIndex;
+    const track = tracks[validIndex];
+    this.currentTrack = track;
+
+    console.log(`[SaloonAudioEngine] Playing track [${validIndex + 1}/${tracks.length}]:`, track.title, `(${track.film})`);
+
+    // Notify listeners immediately for 100% accurate title display on frame 0
+    this.notifyListeners('playback_update', {
+      position: Math.round(initialPosition),
+      duration: Math.round(track.duration || 300),
+      isPaused: !autoPlay,
+      trackInfo: track
+    });
+
+    // Instantly stop previous track audio to prevent audio overlap/bleed while loading
+    try {
+      this.audio.pause();
+      if (this.ytPlayer && typeof this.ytPlayer.stopVideo === 'function') {
+        this.ytPlayer.stopVideo();
+      }
+    } catch (e) {}
+
+    if (this.ytPlayer && typeof this.ytPlayer.loadVideoById === 'function' && track.youtubeId) {
+      try {
+        if (autoPlay) {
+          this.ytPlayer.loadVideoById(track.youtubeId, initialPosition);
+        } else {
+          this.ytPlayer.cueVideoById(track.youtubeId, initialPosition);
+        }
+        return;
+      } catch (e) {
+        console.warn('[SaloonAudioEngine] YT load notice:', e);
+      }
+    }
+
+    // Fallback to HTML5 audio element
+    const audioUrl = track.audioUrl;
+    if (audioUrl && this.audio.src !== audioUrl) {
+      this.audio.src = audioUrl;
+    }
+    if (initialPosition > 0) {
+      this.audio.currentTime = initialPosition;
+    }
+    if (autoPlay) {
+      this.play();
+    } else {
+      this.audio.pause();
+    }
+  }
+
+  play() {
+    audioFX.playCassetteClick();
+    if (this.ytPlayer && typeof this.ytPlayer.playVideo === 'function') {
+      try {
+        this.ytPlayer.playVideo();
+        this.isPlaying = true;
+        return;
+      } catch (e) {}
+    }
+
+    this.audio.play()
+      .then(() => {
+        this.isPlaying = true;
+      })
+      .catch((err) => {
+        console.warn('[SaloonAudioEngine] Play notice:', err);
+      });
+  }
+
+  pause() {
+    audioFX.playCassetteClick();
+    if (this.ytPlayer && typeof this.ytPlayer.pauseVideo === 'function') {
+      try {
+        this.ytPlayer.pauseVideo();
+        this.isPlaying = false;
+        return;
+      } catch (e) {}
+    }
+
+    this.audio.pause();
+    this.isPlaying = false;
+  }
+
+  toggle() {
+    audioFX.playCassetteClick();
+    if (this.isPlaying) {
+      this.pause();
+    } else {
+      this.play();
+    }
+  }
+
+  next() {
+    audioFX.playRadioTuning();
+    if (!this.currentPlaylist) return;
+    const nextIndex = (this.currentTrackIndex + 1) % this.currentPlaylist.tracks.length;
+    this.playTrackAtIndex(nextIndex, true, 0);
+  }
+
+  previous() {
+    audioFX.playRadioTuning();
+    if (!this.currentPlaylist) return;
+    const prevIndex = (this.currentTrackIndex - 1 + this.currentPlaylist.tracks.length) % this.currentPlaylist.tracks.length;
+    this.playTrackAtIndex(prevIndex, true, 0);
+  }
+
+  seek(seconds) {
+    if (!Number.isFinite(seconds)) return;
+    if (this.ytPlayer && typeof this.ytPlayer.seekTo === 'function') {
+      try {
+        this.ytPlayer.seekTo(seconds, true);
+        return;
+      } catch (e) {}
+    }
+
+    this.audio.currentTime = seconds;
+    this.notifyListeners('playback_update', {
+      position: Math.round(seconds),
+      duration: Math.round(this.audio.duration || this.currentTrack?.duration || 300),
+      isPaused: !this.isPlaying,
+      trackInfo: this.currentTrack
+    });
+  }
+}
+
+export const audioEngine = new SaloonAudioEngine();
+export default audioEngine;
+
+

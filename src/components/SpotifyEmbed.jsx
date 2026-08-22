@@ -13,7 +13,7 @@ function loadSpotifyIframeApi() {
   spotifyApiPromise = new Promise((resolve) => {
     const prevHandler = window.onSpotifyIframeApiReady;
     window.onSpotifyIframeApiReady = (IFrameAPI) => {
-      console.log('[BHAIJAAN] Spotify API ready');
+      console.log('[BHAIJAAN] Spotify Embed API ready');
       if (typeof prevHandler === 'function') prevHandler(IFrameAPI);
       window.SpotifyIframeApi = IFrameAPI;
       resolve(IFrameAPI);
@@ -37,6 +37,7 @@ export const SpotifyEmbed = forwardRef(function SpotifyEmbed({ initialPlaylistUr
   const containerRef = useRef(null);
   const controllerRef = useRef(null);
   const playbackChangeRef = useRef(onPlaybackChange);
+  const lastTrackUriRef = useRef(null);
 
   playbackChangeRef.current = onPlaybackChange;
 
@@ -65,7 +66,7 @@ export const SpotifyEmbed = forwardRef(function SpotifyEmbed({ initialPlaylistUr
         const options = {
           uri: initialUri,
           width: '100%',
-          height: '380'
+          height: '152'
         };
 
         const callback = (EmbedController) => {
@@ -83,27 +84,48 @@ export const SpotifyEmbed = forwardRef(function SpotifyEmbed({ initialPlaylistUr
           });
 
           EmbedController.addListener('playback_update', (e) => {
-            console.log('[BHAIJAAN] PLAYBACK UPDATE FROM SPOTIFY:', e.data);
-            
             const rawTrack = e.data?.track;
             const playingUri = e.data?.playingURI || rawTrack?.uri;
 
             let extractedTrack = null;
             if (rawTrack) {
-              const artistName = typeof rawTrack.artist === 'string'
+              const artistNames = Array.isArray(rawTrack.artists)
+                ? rawTrack.artists.map(a => typeof a === 'string' ? a : a.name).join(', ')
+                : typeof rawTrack.artist === 'string'
                 ? rawTrack.artist
-                : rawTrack.artist?.name || rawTrack.artists?.[0]?.name || 'Salman Khan';
+                : rawTrack.artist?.name || 'Salman Khan';
               
               const albumTitle = typeof rawTrack.album === 'string'
                 ? rawTrack.album
                 : rawTrack.album?.name || '';
 
+              const albumImages = rawTrack.album?.images || [];
+              const artworkUrl = albumImages[1]?.url || albumImages[0]?.url || null;
+
               extractedTrack = {
-                title: rawTrack.name || rawTrack.title || 'Spotify Track',
-                film: albumTitle || 'Salman Khan Hits',
-                singers: artistName ? [artistName] : ['Salman Khan'],
-                spotifyUri: playingUri
+                title: rawTrack.name || rawTrack.title || '',
+                name: rawTrack.name || rawTrack.title || '',
+                artist: artistNames,
+                artists: artistNames,
+                album: albumTitle,
+                film: albumTitle,
+                artworkUrl: artworkUrl,
+                images: albumImages,
+                spotifyUri: playingUri,
+                duration_ms: e.data?.duration
               };
+            }
+
+            if (playingUri && playingUri !== lastTrackUriRef.current) {
+              lastTrackUriRef.current = playingUri;
+              console.log('[BHAIJAAN] NEW TRACK:', extractedTrack?.title || playingUri);
+              console.log('[BHAIJAAN] SPOTIFY STATE', {
+                track: extractedTrack?.title || playingUri,
+                uri: playingUri,
+                paused: e.data?.isPaused,
+                position: e.data?.position,
+                duration: e.data?.duration
+              });
             }
 
             playbackChangeRef.current?.({
@@ -111,7 +133,8 @@ export const SpotifyEmbed = forwardRef(function SpotifyEmbed({ initialPlaylistUr
               position: e.data?.position,
               duration: e.data?.duration,
               playingUri: playingUri,
-              trackInfo: extractedTrack
+              trackInfo: extractedTrack,
+              disallows: e.data?.disallows || {}
             });
           });
 
@@ -119,7 +142,6 @@ export const SpotifyEmbed = forwardRef(function SpotifyEmbed({ initialPlaylistUr
             console.log('[BHAIJAAN] PLAYBACK STARTED:', e);
           });
 
-          // Distinct Spotify Embed Error Listener
           EmbedController.addListener('error', (err) => {
             console.error('[BHAIJAAN] Spotify Embed Error:', err);
             playbackChangeRef.current?.({
@@ -142,8 +164,14 @@ export const SpotifyEmbed = forwardRef(function SpotifyEmbed({ initialPlaylistUr
   return (
     <div
       ref={containerRef}
-      className="spotify-embed-container w-full"
-      style={{ minHeight: '380px' }}
+      className="spotify-embed-card"
+      style={{
+        width: '100%',
+        maxHeight: '152px',
+        borderRadius: '12px',
+        overflow: 'hidden',
+        boxShadow: '0 8px 32px rgba(0,0,0,0.8)'
+      }}
     />
   );
 });

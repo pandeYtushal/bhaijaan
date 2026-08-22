@@ -61,7 +61,8 @@ class SpotifyControllerManager {
     if (this.currentUri) {
       try {
         if (typeof this.controller.loadUri === 'function') {
-          this.controller.loadUri(this.currentUri);
+          const res = this.controller.loadUri(this.currentUri);
+          if (res && typeof res.catch === 'function') res.catch(() => {});
         }
       } catch (e) {}
     }
@@ -83,59 +84,79 @@ class SpotifyControllerManager {
   play() {
     console.log('[BHAIJAAN] PLAYBACK REQUESTED');
     try {
-      this.controller?.play();
+      const res = this.controller?.play();
+      if (res && typeof res.catch === 'function') res.catch(() => {});
     } catch (e) {
-      console.warn('[BHAIJAAN] Play failed', e);
+      console.warn('[BHAIJAAN] Play notice:', e);
     }
   }
 
   pause() {
+    console.log('[BHAIJAAN] PAUSE REQUESTED');
     try {
-      this.controller?.pause();
+      const res = this.controller?.pause();
+      if (res && typeof res.catch === 'function') res.catch(() => {});
     } catch (e) {
-      console.warn('[BHAIJAAN] Pause failed', e);
+      console.warn('[BHAIJAAN] Pause notice:', e);
     }
   }
 
   togglePlay() {
-    console.log('[BHAIJAAN] TOGGLE PLAYBACK REQUESTED');
+    console.log('[BHAIJAAN] TOGGLE PLAY CLICK');
     try {
-      this.controller?.togglePlay();
+      const res = this.controller?.togglePlay();
+      if (res && typeof res.catch === 'function') res.catch(() => {});
     } catch (e) {
-      console.warn('[BHAIJAAN] Toggle play failed', e);
+      console.warn('[BHAIJAAN] Toggle play notice:', e);
     }
   }
 
   seek(seconds) {
+    console.log('[BHAIJAAN] SEEK REQUESTED:', seconds);
     try {
       if (this.controller && typeof this.controller.seek === 'function') {
-        this.controller.seek(Math.round(seconds));
+        const res = this.controller.seek(Math.round(seconds));
+        if (res && typeof res.catch === 'function') {
+          res.catch((err) => {
+            console.warn('[BHAIJAAN] Spotify seek notice (content does not allow seek):', err?.message || err);
+          });
+        }
       }
     } catch (e) {
-      console.warn('[BHAIJAAN] Seek failed', e);
+      console.warn('[BHAIJAAN] Seek notice:', e);
     }
   }
 
   next() {
+    console.log('[BHAIJAAN] NEXT CLICK');
+    console.log('[BHAIJAAN] Spotify NEXT REQUEST');
     try {
       if (this.controller && typeof this.controller.next === 'function') {
-        this.controller.next();
+        const res = this.controller.next();
+        if (res && typeof res.catch === 'function') res.catch(() => {});
       }
-    } catch (e) {}
+    } catch (e) {
+      console.error('[BHAIJAAN] Next command notice:', e);
+    }
   }
 
   previous() {
+    console.log('[BHAIJAAN] PREVIOUS CLICK');
+    console.log('[BHAIJAAN] Spotify PREVIOUS REQUEST');
     try {
       if (this.controller && typeof this.controller.previous === 'function') {
-        this.controller.previous();
+        const res = this.controller.previous();
+        if (res && typeof res.catch === 'function') res.catch(() => {});
       }
-    } catch (e) {}
+    } catch (e) {
+      console.error('[BHAIJAAN] Previous command notice:', e);
+    }
   }
 
-  loadEntity(urlOrUri) {
+  loadEntity(urlOrUri, autoPlay = true) {
     const uri = getSpotifyUri(urlOrUri);
     this.currentUri = uri;
-    console.log('[BHAIJAAN] LOADING ENTITY:', uri);
+    console.log('[BHAIJAAN] LOADING SPOTIFY ENTITY:', uri);
 
     if (!this.controller) {
       console.warn('[BHAIJAAN] SPOTIFY CONTROLLER: Not ready yet');
@@ -143,13 +164,22 @@ class SpotifyControllerManager {
     }
 
     try {
+      let res = null;
       if (typeof this.controller.loadUri === 'function') {
-        this.controller.loadUri(uri);
+        res = this.controller.loadUri(uri);
       } else if (typeof this.controller.loadEntity === 'function') {
-        this.controller.loadEntity(uri);
+        res = this.controller.loadEntity(uri);
+      }
+
+      if (res && typeof res.catch === 'function') {
+        res.catch(() => {});
+      }
+
+      if (autoPlay) {
+        this.play();
       }
     } catch (e) {
-      console.warn('[BHAIJAAN] loadEntity failed:', e);
+      console.warn('[BHAIJAAN] loadEntity notice:', e);
     }
   }
 
