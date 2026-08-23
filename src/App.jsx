@@ -188,14 +188,15 @@ export default function App() {
 
           {/* Vertical Mode Navigation */}
           <nav className="vertical-modes-nav" aria-label="Mood navigation">
-            {MOODS.map((mood) => (
+            {MOODS.map((mood, index) => (
               <button
                 key={mood.id}
                 type="button"
                 className={`vertical-mode-btn ${activeMode.id === mood.id ? 'active' : ''}`}
                 onClick={() => handleMoodClick(mood)}
+                aria-label={`Switch to ${mood.label}`}
               >
-                <span className="mode-indicator-dot" />
+                <span className="mode-number">{String(index + 1).padStart(2, '0')}</span>
                 <span className="mode-label-text">{mood.label}</span>
               </button>
             ))}
