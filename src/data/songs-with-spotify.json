@@ -1,472 +1,686 @@
 [
   {
-    "id": "o-o-jaane-jaana",
-    "title": "O O Jaane Jaana",
-    "film": "Pyaar Kiya To Darna Kya",
-    "year": 1998,
-    "singers": ["Kamaal Khan"],
-    "spotifyUri": "spotify:track:62u45S9g2GgH51eHq0tX6o",
-    "spotifyUrl": "https://open.spotify.com/track/62u45S9g2GgH51eHq0tX6o",
-    "youtubeId": "x_elT6zkqN0",
-    "audioUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/64/ee/44/64ee4475-4368-3479-6e3e-f458a61579f5/mzaf_6763130105777777559.plus.aac.p.m4a",
-    "duration": 226,
-    "needsReview": false
-  },
-  {
-    "id": "dil-deewana",
-    "title": "Dil Deewana",
-    "film": "Maine Pyar Kiya",
-    "year": 1989,
-    "singers": ["S.P. Balasubrahmanyam"],
-    "spotifyUri": "spotify:track:4jVnK5lVd8lR5hWn6gY9Kj",
-    "spotifyUrl": "https://open.spotify.com/track/4jVnK5lVd8lR5hWn6gY9Kj",
-    "youtubeId": "5s68NXiaWgk",
-    "audioUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/06/0f/d8/060fd8e5-f3a7-0792-b5e9-170e7a235f8b/mzaf_2901743097118647494.plus.aac.p.m4a",
-    "duration": 355,
-    "needsReview": false
-  },
-  {
-    "id": "tere-naam",
-    "title": "Tere Naam",
-    "film": "Tere Naam",
-    "year": 2003,
-    "singers": ["Udit Narayan", "Alka Yagnik"],
-    "spotifyUri": "spotify:track:4jV94kFw9X0j88qJp9gX0T",
-    "spotifyUrl": "https://open.spotify.com/track/4jV94kFw9X0j88qJp9gX0T",
-    "youtubeId": "OMoU0Pfibc4",
-    "audioUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/69/f0/57/69f0572b-198f-a22e-d983-37874a4e26c9/mzaf_16604368240167334850.plus.aac.p.m4a",
-    "duration": 393,
-    "needsReview": false
-  },
-  {
-    "id": "hud-hud-dabangg",
-    "title": "Hud Hud Dabangg",
-    "film": "Dabangg",
-    "year": 2010,
-    "singers": ["Sukhwinder Singh", "Wajid"],
-    "spotifyUri": "spotify:track:31aN2kH8P7Vq7l4uX7yY0T",
-    "spotifyUrl": "https://open.spotify.com/track/31aN2kH8P7Vq7l4uX7yY0T",
-    "youtubeId": "yG1K5YzmmBA",
-    "audioUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/3e/2f/4b/3e2f4bc8-bc4a-4264-98ac-8cd8c8cbe325/mzaf_8020403994068931706.plus.aac.p.m4a",
-    "duration": 260,
-    "needsReview": false
-  },
-  {
-    "id": "jumme-ki-raat",
-    "title": "Jumme Ki Raat",
-    "film": "Kick",
-    "year": 2014,
-    "singers": ["Mika Singh", "Palak Muchhal"],
-    "spotifyUri": "spotify:track:0VjIjW4GlUZAMYd2vXMi3b",
-    "spotifyUrl": "https://open.spotify.com/track/0VjIjW4GlUZAMYd2vXMi3b",
-    "youtubeId": "dv_Qjzca56k",
-    "audioUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/d2/4b/b8/d24bb874-ecf8-4dd3-5e74-276bb045798a/mzaf_5090087486390226177.plus.aac.p.m4a",
-    "duration": 274,
-    "needsReview": false
-  },
-  {
-    "id": "swag-se-swagat",
+    "id": "swag-se-swagat-tiger-zinda-hai",
     "title": "Swag Se Swagat",
     "film": "Tiger Zinda Hai",
     "year": 2017,
-    "singers": ["Vishal Dadlani", "Neha Bhasin"],
-    "spotifyUri": "spotify:track:66U04HGjM6v4h87yupIZ9E",
-    "spotifyUrl": "https://open.spotify.com/track/66U04HGjM6v4h87yupIZ9E",
+    "singers": [
+      "Vishal Dadlani",
+      "Neha Bhasin"
+    ],
+    "duration": 236,
+    "youtubeSearchUrl": "https://www.youtube.com/results?search_query=Swag%20Se%20Swagat%20Tiger%20Zinda%20Hai%20Salman%20Khan%20song",
     "youtubeId": "xmU0s2QtaEY",
     "audioUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/89/66/2d/89662d50-0049-193d-daf7-7965acd8aabf/mzaf_1633242550499414413.plus.aac.p.m4a",
-    "duration": 236,
+    "spotifyUri": "spotify:track:4jV94kFw9X0j88qJp9gX0T",
+    "spotifyUrl": "https://open.spotify.com/track/4jV94kFw9X0j88qJp9gX0T",
     "needsReview": false
   },
   {
-    "id": "dil-diyan-gallan",
-    "title": "Dil Diyan Gallan",
-    "film": "Tiger Zinda Hai",
-    "year": 2017,
-    "singers": ["Atif Aslam"],
-    "spotifyUri": "spotify:track:4145Xg0GzGZkM5Jq7n124t",
-    "spotifyUrl": "https://open.spotify.com/track/4145Xg0GzGZkM5Jq7n124t",
-    "youtubeId": "POvFEQaK634",
-    "audioUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/70/5a/67/705a67b0-a61f-db2c-bb6a-ab06c78a4386/mzaf_5706499000965104644.plus.aac.p.m4a",
-    "duration": 260,
+    "id": "jumme-ki-raat-kick",
+    "title": "Jumme Ki Raat",
+    "film": "Kick",
+    "year": 2014,
+    "singers": [
+      "Mika Singh",
+      "Palak Muchhal"
+    ],
+    "duration": 274,
+    "youtubeSearchUrl": "https://www.youtube.com/results?search_query=Jumme%20Ki%20Raat%20Kick%20Salman%20Khan%20song",
+    "youtubeId": "dv_Qjzca56k",
+    "audioUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/d2/4b/b8/d24bb874-ecf8-4dd3-5e74-276bb045798a/mzaf_5090087486390226177.plus.aac.p.m4a",
+    "spotifyUri": "spotify:track:4jV94kFw9X0j88qJp9gX0T",
+    "spotifyUrl": "https://open.spotify.com/track/4jV94kFw9X0j88qJp9gX0T",
     "needsReview": false
   },
   {
-    "id": "munni-badnaam",
+    "id": "munni-badnaam-hui-dabangg",
     "title": "Munni Badnaam Hui",
     "film": "Dabangg",
     "year": 2010,
-    "singers": ["Mamta Sharma", "Aishwarya Nigam"],
-    "spotifyUri": "spotify:track:4q124t8yX9X1g0Y2X5k0y0",
-    "spotifyUrl": "https://open.spotify.com/track/4q124t8yX9X1g0Y2X5k0y0",
+    "singers": [
+      "Mamta Sharma",
+      "Aishwarya Nigam"
+    ],
+    "duration": 307,
+    "youtubeSearchUrl": "https://www.youtube.com/results?search_query=Munni%20Badnaam%20Hui%20Dabangg%20Salman%20Khan%20song",
     "youtubeId": "Jn5hsfbhWx4",
     "audioUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/07/7c/ca/077cca47-522d-501f-e6a7-d92c19e1d78e/mzaf_5550278120584868382.plus.aac.p.m4a",
-    "duration": 307,
+    "spotifyUri": "spotify:track:4jV94kFw9X0j88qJp9gX0T",
+    "spotifyUrl": "https://open.spotify.com/track/4jV94kFw9X0j88qJp9gX0T",
     "needsReview": false
   },
   {
-    "id": "mera-dil-bhi",
-    "title": "Mera Dil Bhi Kitna Pagal",
-    "film": "Saajan",
-    "year": 1991,
-    "singers": ["Kumar Sanu", "Alka Yagnik"],
-    "spotifyUri": "spotify:track:44aPz26R9278n97kF4125G",
-    "spotifyUrl": "https://open.spotify.com/track/44aPz26R9278n97kF4125G",
-    "youtubeId": "FsNc7I33w60",
-    "audioUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/21/16/5f/21165f68-d4a1-189f-1e26-adf3325e3aa3/mzaf_5132537107584213644.plus.aac.p.m4a",
-    "duration": 325,
+    "id": "hud-hud-dabangg-dabangg",
+    "title": "Hud Hud Dabangg",
+    "film": "Dabangg",
+    "year": 2010,
+    "singers": [
+      "Sukhwinder Singh",
+      "Wajid"
+    ],
+    "duration": 260,
+    "youtubeSearchUrl": "https://www.youtube.com/results?search_query=Hud%20Hud%20Dabangg%20Dabangg%20Salman%20Khan%20song",
+    "youtubeId": "yG1K5YzmmBA",
+    "audioUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/3e/2f/4b/3e2f4bc8-bc4a-4264-98ac-8cd8c8cbe325/mzaf_8020403994068931706.plus.aac.p.m4a",
+    "spotifyUri": "spotify:track:4jV94kFw9X0j88qJp9gX0T",
+    "spotifyUrl": "https://open.spotify.com/track/4jV94kFw9X0j88qJp9gX0T",
     "needsReview": false
   },
   {
-    "id": "chand-chhupa",
-    "title": "Chand Chhupa Badal Mein",
-    "film": "Hum Dil De Chuke Sanam",
-    "year": 1999,
-    "singers": ["Udit Narayan", "Alka Yagnik"],
-    "spotifyUri": "spotify:track:1999010101010101010101",
-    "spotifyUrl": "https://open.spotify.com/track/1999010101010101010101",
-    "youtubeId": "2knQOXevwKE",
-    "audioUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/20/4b/88/204b8838-5574-3142-f39a-fe55e8ac2e86/mzaf_6904935037538124600.plus.aac.p.m4a",
-    "duration": 348,
-    "needsReview": false
-  },
-  {
-    "id": "pehla-pehla-pyar",
-    "title": "Pehla Pehla Pyar",
-    "film": "Hum Aapke Hain Koun",
-    "year": 1994,
-    "singers": ["S.P. Balasubrahmanyam"],
-    "spotifyUrl": "https://open.spotify.com/track/7iW35WA5Zs6GtHBGGRu4CZ",
-    "youtubeId": "w2iozAbNXAo",
-    "audioUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/54/26/1b/54261b11-6766-b00c-88ca-e32a09efa82e/mzaf_7731434468085080572.plus.aac.p.m4a",
-    "duration": 265,
-    "needsReview": false
-  },
-  {
-    "id": "didi-tera-devar",
-    "title": "Didi Tera Devar Deewana",
-    "film": "Hum Aapke Hain Koun",
-    "year": 1994,
-    "singers": ["Lata Mangeshkar", "S.P. Balasubrahmanyam"],
-    "spotifyUrl": "https://open.spotify.com/track/7iW35WA5Zs6GtHBGGRu4CZ",
-    "youtubeId": "ZqcDGvCM_w0",
-    "audioUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/0e/cd/a7/0ecda731-94a7-44d5-5c22-a6420bbbf572/mzaf_667441114175732903.plus.aac.p.m4a",
-    "duration": 483,
-    "needsReview": false
-  },
-  {
-    "id": "tan-tana-tan",
-    "title": "Tan Tana Tan Tan Tan Tara",
-    "film": "Judwaa",
-    "year": 1997,
-    "singers": ["Abhijeet", "Poornima"],
-    "spotifyUrl": "https://open.spotify.com/track/4a499zchFELXUSumfrUFvK",
-    "youtubeId": "8TIZ7S_PlVk",
-    "audioUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/69/46/f7/6946f74d-63cb-f873-56c2-d922809401d7/mzaf_2931960648953726471.plus.aac.p.m4a",
-    "duration": 394,
-    "needsReview": false
-  },
-  {
-    "id": "unchi-hai-building",
-    "title": "O Unchi Hai Building",
-    "film": "Judwaa",
-    "year": 1997,
-    "singers": ["Anu Malik", "Poornima"],
-    "spotifyUrl": "https://open.spotify.com/track/4a499zchFELXUSumfrUFvK",
-    "youtubeId": "QmHTmr8Kazs",
-    "audioUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/8d/9f/2d/8d9f2d08-8fa8-7543-f490-0fbfdbe0a019/mzaf_2552163857619954837.plus.aac.p.m4a",
-    "duration": 312,
-    "needsReview": false
-  },
-  {
-    "id": "jeene-ke-hain-chaar-din",
-    "title": "Jeene Ke Hain Chaar Din",
-    "film": "Mujhse Shaadi Karogi",
-    "year": 2004,
-    "singers": ["Sonu Nigam", "Sunidhi Chauhan"],
-    "spotifyUrl": "https://open.spotify.com/track/7iW35WA5Zs6GtHBGGRu4CZ",
-    "youtubeId": "xyngwCXoMdI",
-    "audioUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview116/v4/8f/29/69/8f2969c0-d2d8-df83-a832-32ffea4503ad/mzaf_4160499178787848503.plus.aac.p.m4a",
-    "duration": 321,
-    "needsReview": false
-  },
-  {
-    "id": "character-dheela",
+    "id": "character-dheela-ready",
     "title": "Character Dheela",
     "film": "Ready",
     "year": 2011,
-    "singers": ["Neeraj Shridhar", "Amrita Kak"],
-    "spotifyUrl": "https://open.spotify.com/track/3Ye57MhrB2yFkD39bdxU5c",
+    "singers": [
+      "Neeraj Shridhar",
+      "Amrita Kak"
+    ],
+    "duration": 227,
+    "youtubeSearchUrl": "https://www.youtube.com/results?search_query=Character%20Dheela%20Ready%20Salman%20Khan%20song",
     "youtubeId": "ruEQPQX90fI",
     "audioUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/eb/8d/b3/eb8db3f0-3155-b0ce-bd37-44d6181de2d5/mzaf_15897055510919617346.plus.aac.p.m4a",
-    "duration": 227,
+    "spotifyUri": "spotify:track:4jV94kFw9X0j88qJp9gX0T",
+    "spotifyUrl": "https://open.spotify.com/track/4jV94kFw9X0j88qJp9gX0T",
     "needsReview": false
   },
   {
-    "id": "sajanji-ghar-aaye",
-    "title": "Saajanji Ghar Aaye",
-    "film": "Kuch Kuch Hota Hai",
-    "year": 1998,
-    "singers": ["Kumar Sanu", "Alka Yagnik", "Kavita Krishnamurthy"],
-    "spotifyUrl": "https://open.spotify.com/track/0Rgj9nRineoSYEktQeg61b",
-    "youtubeId": "8XtXLVylOoU",
-    "audioUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/c1/81/c8/c181c88e-d0e2-3a3a-5807-4cad20b73e5c/mzaf_16999658309796780521.plus.aac.p.m4a",
-    "duration": 435,
-    "needsReview": false
-  },
-  {
-    "id": "just-chill",
-    "title": "Just Chill",
-    "film": "Maine Pyaar Kyun Kiya",
-    "year": 2005,
-    "singers": ["Sonu Nigam", "Jayesh Gandhi", "Amrita Kak"],
-    "spotifyUrl": "https://open.spotify.com/track/3Ye57MhrB2yFkD39bdxU5c",
-    "youtubeId": "w5iA5LIwF2A",
-    "audioUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/0f/45/aa/0f45aa6d-f326-bbf2-a6dc-c8c4c5e6d66c/mzaf_237308908148729369.plus.aac.p.m4a",
-    "duration": 324,
-    "needsReview": false
-  },
-  {
-    "id": "chori-chori-chupke",
-    "title": "Chori Chori Chupke Chupke",
-    "film": "Chori Chori Chupke Chupke",
-    "year": 2001,
-    "singers": ["Alka Yagnik", "Babul Supriyo"],
-    "spotifyUrl": "https://open.spotify.com/track/0Rgj9nRineoSYEktQeg61b",
-    "youtubeId": "6oxkN1rRPW4",
-    "audioUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/4a/33/42/4a334249-c004-1288-fba4-309beddb2dab/mzaf_1093026280847406180.plus.aac.p.m4a",
-    "duration": 452,
-    "needsReview": false
-  },
-  {
-    "id": "jag-ghoomeya",
-    "title": "Jag Ghoomeya",
-    "film": "Sultan",
-    "year": 2016,
-    "singers": ["Rahat Fateh Ali Khan"],
-    "spotifyUrl": "https://open.spotify.com/track/37i9dQZF1DZ06evO3CjygN",
-    "youtubeId": "U2iXYl8TiQE",
-    "audioUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/19/da/a9/19daa9ab-5f4d-6609-bedc-f5fdd0e9264f/mzaf_10796896145192655268.plus.aac.p.m4a",
-    "duration": 281,
-    "needsReview": false
-  },
-  {
-    "id": "slow-motion",
-    "title": "Slow Motion",
-    "film": "Bharat",
-    "year": 2019,
-    "singers": ["Nakash Aziz", "Shreya Ghoshal"],
-    "spotifyUrl": "https://open.spotify.com/playlist/3Ye57MhrB2yFkD39bdxU5c",
-    "youtubeId": "8AedZtuoVSg",
-    "duration": 247,
-    "needsReview": false
-  },
-  {
-    "id": "seeti-maar",
-    "title": "Seeti Maar",
-    "film": "Radhe",
-    "year": 2021,
-    "singers": ["Kamaal Khan", "Iulia Vantur"],
-    "spotifyUrl": "https://open.spotify.com/playlist/3Ye57MhrB2yFkD39bdxU5c",
-    "youtubeId": "mvgRsyQYWMo",
-    "duration": 243,
-    "needsReview": false
-  },
-  {
-    "id": "main-hoon-hero-tera",
-    "title": "Main Hoon Hero Tera",
-    "film": "Hero",
-    "year": 2015,
-    "singers": ["Salman Khan"],
-    "spotifyUrl": "https://open.spotify.com/playlist/37i9dQZF1DZ06evO3CjygN",
-    "youtubeId": "DMH-GARKr1U",
-    "duration": 284,
-    "needsReview": false
-  },
-  {
-    "id": "aaj-unse-milna-hai",
-    "title": "Aaj Unse Milna Hai",
-    "film": "Prem Ratan Dhan Payo",
-    "year": 2015,
-    "singers": ["Shaan"],
-    "spotifyUrl": "https://open.spotify.com/playlist/37i9dQZF1DZ06evO3CjygN",
-    "youtubeId": "9Vy9ObEOVvg",
-    "duration": 243,
-    "needsReview": false
-  },
-  {
-    "id": "prem-leela",
-    "title": "Prem Leela",
-    "film": "Prem Ratan Dhan Payo",
-    "year": 2015,
-    "singers": ["Aman Trikha", "Vineet Singh"],
-    "spotifyUrl": "https://open.spotify.com/playlist/37i9dQZF1DZ06evO3CjygN",
-    "youtubeId": "QDHsMmOvrN0",
-    "duration": 221,
-    "needsReview": false
-  },
-  {
-    "id": "selfie-le-le-re",
-    "title": "Selfie Le Le Re",
-    "film": "Bajrangi Bhaijaan",
-    "year": 2015,
-    "singers": ["Vishal Dadlani", "Nakash Aziz", "Pritam"],
-    "spotifyUrl": "https://open.spotify.com/playlist/3Ye57MhrB2yFkD39bdxU5c",
-    "youtubeId": "TITGBTGJZS8",
-    "duration": 298,
-    "needsReview": false
-  },
-  {
-    "id": "tu-jo-mila",
-    "title": "Tu Jo Mila",
-    "film": "Bajrangi Bhaijaan",
-    "year": 2015,
-    "singers": ["KK"],
-    "spotifyUrl": "https://open.spotify.com/playlist/37i9dQZF1DZ06evO3CjygN",
-    "youtubeId": "6DCOjq0omBc",
-    "duration": 244,
-    "needsReview": false
-  },
-  {
-    "id": "hangover",
-    "title": "Hangover",
-    "film": "Kick",
-    "year": 2014,
-    "singers": ["Salman Khan", "Shreya Ghoshal"],
-    "spotifyUrl": "https://open.spotify.com/playlist/7iW35WA5Zs6GtHBGGRu4CZ",
-    "youtubeId": "1gqBb4Y7LJA",
-    "duration": 293,
-    "needsReview": false
-  },
-  {
-    "id": "dagabaaz-re",
-    "title": "Dagabaaz Re",
-    "film": "Dabangg 2",
-    "year": 2012,
-    "singers": ["Rahat Fateh Ali Khan", "Shreya Ghoshal"],
-    "spotifyUrl": "https://open.spotify.com/playlist/7iW35WA5Zs6GtHBGGRu4CZ",
-    "youtubeId": "0KozfDYK1EU",
-    "duration": 288,
-    "needsReview": false
-  },
-  {
-    "id": "pandey-jee",
-    "title": "Pandey Jee Se Seeti",
-    "film": "Dabangg 2",
-    "year": 2012,
-    "singers": ["Wajid", "Mamta Sharma", "Shreya Ghoshal"],
-    "spotifyUrl": "https://open.spotify.com/playlist/3Ye57MhrB2yFkD39bdxU5c",
-    "youtubeId": "gSaaNGMPl_g",
-    "duration": 258,
-    "needsReview": false
-  },
-  {
-    "id": "fevicol-se",
-    "title": "Fevicol Se",
-    "film": "Dabangg 2",
-    "year": 2012,
-    "singers": ["Mamta Sharma", "Wajid"],
-    "spotifyUrl": "https://open.spotify.com/playlist/3Ye57MhrB2yFkD39bdxU5c",
-    "youtubeId": "zE7Pwgl6sLA",
-    "duration": 289,
-    "needsReview": false
-  },
-  {
-    "id": "mashallah",
-    "title": "Mashallah",
-    "film": "Ek Tha Tiger",
-    "year": 2012,
-    "singers": ["Wajid", "Shreya Ghoshal"],
-    "spotifyUrl": "https://open.spotify.com/playlist/3Ye57MhrB2yFkD39bdxU5c",
-    "youtubeId": "9_BUZaTcozs",
-    "duration": 285,
-    "needsReview": false
-  },
-  {
-    "id": "saiyaara",
-    "title": "Saiyaara",
-    "film": "Ek Tha Tiger",
-    "year": 2012,
-    "singers": ["Mohit Chauhan", "Taraannum Mallik"],
-    "spotifyUrl": "https://open.spotify.com/playlist/37i9dQZF1DZ06evO3CjygN",
-    "youtubeId": "A5pSnIwbpaM",
-    "duration": 253,
-    "needsReview": false
-  },
-  {
-    "id": "lapaata",
-    "title": "Lapaata",
-    "film": "Ek Tha Tiger",
-    "year": 2012,
-    "singers": ["KK", "Palak Muchhal"],
-    "spotifyUrl": "https://open.spotify.com/playlist/3Ye57MhrB2yFkD39bdxU5c",
-    "youtubeId": "3PqxT1VqyNc",
-    "duration": 256,
-    "needsReview": false
-  },
-  {
-    "id": "radio",
-    "title": "Radio",
-    "film": "Tubelight",
-    "year": 2017,
-    "singers": ["Kamaal Khan", "Amit Mishra"],
-    "spotifyUrl": "https://open.spotify.com/playlist/3Ye57MhrB2yFkD39bdxU5c",
-    "youtubeId": "TeIJYw2ge6Y",
-    "duration": 290,
-    "needsReview": false
-  },
-  {
-    "id": "baby-ko-bass",
-    "title": "Baby Ko Bass Pasand Hai",
-    "film": "Sultan",
-    "year": 2016,
-    "singers": ["Vishal Dadlani", "Shalmali Kholgade", "Ishita"],
-    "spotifyUrl": "https://open.spotify.com/playlist/3Ye57MhrB2yFkD39bdxU5c",
-    "youtubeId": "p062GuAhsRs",
-    "duration": 253,
-    "needsReview": false
-  },
-  {
-    "id": "440-volt",
-    "title": "440 Volt",
-    "film": "Sultan",
-    "year": 2016,
-    "singers": ["Mika Singh"],
-    "spotifyUrl": "https://open.spotify.com/playlist/3Ye57MhrB2yFkD39bdxU5c",
-    "youtubeId": "I3IyUUXTu1c",
-    "duration": 268,
-    "needsReview": false
-  },
-  {
-    "id": "sultan-title",
-    "title": "Sultan Title Track",
-    "film": "Sultan",
-    "year": 2016,
-    "singers": ["Sukhwinder Singh", "Shadab Faridi"],
-    "spotifyUrl": "https://open.spotify.com/playlist/3Ye57MhrB2yFkD39bdxU5c",
-    "youtubeId": "abiL84EAWSY",
-    "duration": 280,
-    "needsReview": false
-  },
-  {
-    "id": "dhinka-chika",
+    "id": "dhinka-chika-ready",
     "title": "Dhinka Chika",
     "film": "Ready",
     "year": 2011,
-    "singers": ["Mika Singh", "Amrita Kak"],
-    "spotifyUrl": "https://open.spotify.com/playlist/3Ye57MhrB2yFkD39bdxU5c",
-    "youtubeId": "p6D8u6lEDjQ",
+    "singers": [
+      "Mika Singh",
+      "Amrita Kak"
+    ],
     "duration": 272,
+    "youtubeSearchUrl": "https://www.youtube.com/results?search_query=Dhinka%20Chika%20Ready%20Salman%20Khan%20song",
+    "youtubeId": "p6D8u6lEDjQ",
+    "audioUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/eb/8d/b3/eb8db3f0-3155-b0ce-bd37-44d6181de2d5/mzaf_15897055510919617346.plus.aac.p.m4a",
+    "spotifyUri": "spotify:track:4jV94kFw9X0j88qJp9gX0T",
+    "spotifyUrl": "https://open.spotify.com/track/4jV94kFw9X0j88qJp9gX0T",
     "needsReview": false
   },
   {
-    "id": "naiyo-lagda",
-    "title": "Naiyo Lagda",
+    "id": "slow-motion-bharat",
+    "title": "Slow Motion",
+    "film": "Bharat",
+    "year": 2019,
+    "singers": [
+      "Nakash Aziz",
+      "Shreya Ghoshal"
+    ],
+    "duration": 187,
+    "youtubeSearchUrl": "https://www.youtube.com/results?search_query=Slow%20Motion%20Bharat%20Salman%20Khan%20song",
+    "youtubeId": "8AedZtuoVSg",
+    "spotifyUri": "spotify:track:4jV94kFw9X0j88qJp9gX0T",
+    "spotifyUrl": "https://open.spotify.com/track/4jV94kFw9X0j88qJp9gX0T",
+    "audioUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/69/f0/57/69f0572b-198f-a22e-d983-37874a4e26c9/mzaf_16604368240167334850.plus.aac.p.m4a",
+    "needsReview": false
+  },
+  {
+    "id": "seeti-maar-radhe",
+    "title": "Seeti Maar",
+    "film": "Radhe",
+    "year": 2021,
+    "singers": [
+      "Kamaal Khan",
+      "Iulia Vantur"
+    ],
+    "duration": 243,
+    "youtubeSearchUrl": "https://www.youtube.com/results?search_query=Seeti%20Maar%20Radhe%20Salman%20Khan%20song",
+    "youtubeId": "mvgRsyQYWMo",
+    "spotifyUri": "spotify:track:4jV94kFw9X0j88qJp9gX0T",
+    "spotifyUrl": "https://open.spotify.com/track/4jV94kFw9X0j88qJp9gX0T",
+    "audioUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/69/f0/57/69f0572b-198f-a22e-d983-37874a4e26c9/mzaf_16604368240167334850.plus.aac.p.m4a",
+    "needsReview": false
+  },
+  {
+    "id": "selfie-le-le-re-bajrangi-bhaijaan",
+    "title": "Selfie Le Le Re",
+    "film": "Bajrangi Bhaijaan",
+    "year": 2015,
+    "singers": [
+      "Vishal Dadlani",
+      "Nakash Aziz"
+    ],
+    "duration": 298,
+    "youtubeSearchUrl": "https://www.youtube.com/results?search_query=Selfie%20Le%20Le%20Re%20Bajrangi%20Bhaijaan%20Salman%20Khan%20song",
+    "youtubeId": "TITGBTGJZS8",
+    "spotifyUri": "spotify:track:4jV94kFw9X0j88qJp9gX0T",
+    "spotifyUrl": "https://open.spotify.com/track/4jV94kFw9X0j88qJp9gX0T",
+    "audioUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/69/f0/57/69f0572b-198f-a22e-d983-37874a4e26c9/mzaf_16604368240167334850.plus.aac.p.m4a",
+    "needsReview": false
+  },
+  {
+    "id": "pandey-jee-se-seeti-dabangg-2",
+    "title": "Pandey Jee Se Seeti",
+    "film": "Dabangg 2",
+    "year": 2012,
+    "singers": [
+      "Wajid",
+      "Mamta Sharma"
+    ],
+    "duration": 258,
+    "youtubeSearchUrl": "https://www.youtube.com/results?search_query=Pandey%20Jee%20Se%20Seeti%20Dabangg%202%20Salman%20Khan%20song",
+    "youtubeId": "gSaaNGMPl_g",
+    "spotifyUri": "spotify:track:4jV94kFw9X0j88qJp9gX0T",
+    "spotifyUrl": "https://open.spotify.com/track/4jV94kFw9X0j88qJp9gX0T",
+    "audioUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/69/f0/57/69f0572b-198f-a22e-d983-37874a4e26c9/mzaf_16604368240167334850.plus.aac.p.m4a",
+    "needsReview": false
+  },
+  {
+    "id": "fevicol-se-dabangg-2",
+    "title": "Fevicol Se",
+    "film": "Dabangg 2",
+    "year": 2012,
+    "singers": [
+      "Mamta Sharma",
+      "Wajid"
+    ],
+    "duration": 289,
+    "youtubeSearchUrl": "https://www.youtube.com/results?search_query=Fevicol%20Se%20Dabangg%202%20Salman%20Khan%20song",
+    "youtubeId": "zE7Pwgl6sLA",
+    "spotifyUri": "spotify:track:4jV94kFw9X0j88qJp9gX0T",
+    "spotifyUrl": "https://open.spotify.com/track/4jV94kFw9X0j88qJp9gX0T",
+    "audioUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/69/f0/57/69f0572b-198f-a22e-d983-37874a4e26c9/mzaf_16604368240167334850.plus.aac.p.m4a",
+    "needsReview": false
+  },
+  {
+    "id": "mashallah-ek-tha-tiger",
+    "title": "Mashallah",
+    "film": "Ek Tha Tiger",
+    "year": 2012,
+    "singers": [
+      "Wajid",
+      "Shreya Ghoshal"
+    ],
+    "duration": 285,
+    "youtubeSearchUrl": "https://www.youtube.com/results?search_query=Mashallah%20Ek%20Tha%20Tiger%20Salman%20Khan%20song",
+    "youtubeId": "9_BUZaTcozs",
+    "spotifyUri": "spotify:track:4jV94kFw9X0j88qJp9gX0T",
+    "spotifyUrl": "https://open.spotify.com/track/4jV94kFw9X0j88qJp9gX0T",
+    "audioUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/69/f0/57/69f0572b-198f-a22e-d983-37874a4e26c9/mzaf_16604368240167334850.plus.aac.p.m4a",
+    "needsReview": false
+  },
+  {
+    "id": "baby-ko-bass-pasand-hai-sultan",
+    "title": "Baby Ko Bass Pasand Hai",
+    "film": "Sultan",
+    "year": 2016,
+    "singers": [
+      "Vishal Dadlani",
+      "Shalmali Kholgade"
+    ],
+    "duration": 253,
+    "youtubeSearchUrl": "https://www.youtube.com/results?search_query=Baby%20Ko%20Bass%20Pasand%20Hai%20Sultan%20Salman%20Khan%20song",
+    "youtubeId": "p062GuAhsRs",
+    "spotifyUri": "spotify:track:4jV94kFw9X0j88qJp9gX0T",
+    "spotifyUrl": "https://open.spotify.com/track/4jV94kFw9X0j88qJp9gX0T",
+    "audioUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/69/f0/57/69f0572b-198f-a22e-d983-37874a4e26c9/mzaf_16604368240167334850.plus.aac.p.m4a",
+    "needsReview": false
+  },
+  {
+    "id": "440-volt-sultan",
+    "title": "440 Volt",
+    "film": "Sultan",
+    "year": 2016,
+    "singers": [
+      "Mika Singh"
+    ],
+    "duration": 268,
+    "youtubeSearchUrl": "https://www.youtube.com/results?search_query=440%20Volt%20Sultan%20Salman%20Khan%20song",
+    "youtubeId": "I3IyUUXTu1c",
+    "spotifyUri": "spotify:track:4jV94kFw9X0j88qJp9gX0T",
+    "spotifyUrl": "https://open.spotify.com/track/4jV94kFw9X0j88qJp9gX0T",
+    "audioUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/69/f0/57/69f0572b-198f-a22e-d983-37874a4e26c9/mzaf_16604368240167334850.plus.aac.p.m4a",
+    "needsReview": false
+  },
+  {
+    "id": "sultan-title-track-sultan",
+    "title": "Sultan Title Track",
+    "film": "Sultan",
+    "year": 2016,
+    "singers": [
+      "Sukhwinder Singh",
+      "Shadab Faridi"
+    ],
+    "duration": 280,
+    "youtubeSearchUrl": "https://www.youtube.com/results?search_query=Sultan%20Title%20Track%20Sultan%20Salman%20Khan%20song",
+    "youtubeId": "abiL84EAWSY",
+    "spotifyUri": "spotify:track:4jV94kFw9X0j88qJp9gX0T",
+    "spotifyUrl": "https://open.spotify.com/track/4jV94kFw9X0j88qJp9gX0T",
+    "audioUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/69/f0/57/69f0572b-198f-a22e-d983-37874a4e26c9/mzaf_16604368240167334850.plus.aac.p.m4a",
+    "needsReview": false
+  },
+  {
+    "id": "hangover-kick",
+    "title": "Hangover",
+    "film": "Kick",
+    "year": 2014,
+    "singers": [
+      "Salman Khan",
+      "Shreya Ghoshal"
+    ],
+    "duration": 315,
+    "youtubeSearchUrl": "https://www.youtube.com/results?search_query=Hangover%20Kick%20Salman%20Khan%20song",
+    "youtubeId": "1gqBb4Y7LJA",
+    "spotifyUri": "spotify:track:4jV94kFw9X0j88qJp9gX0T",
+    "spotifyUrl": "https://open.spotify.com/track/4jV94kFw9X0j88qJp9gX0T",
+    "audioUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/69/f0/57/69f0572b-198f-a22e-d983-37874a4e26c9/mzaf_16604368240167334850.plus.aac.p.m4a",
+    "needsReview": false
+  },
+  {
+    "id": "radio-tubelight",
+    "title": "Radio",
+    "film": "Tubelight",
+    "year": 2017,
+    "singers": [
+      "Kamaal Khan",
+      "Amit Mishra"
+    ],
+    "duration": 280,
+    "youtubeSearchUrl": "https://www.youtube.com/results?search_query=Radio%20Tubelight%20Salman%20Khan%20song",
+    "youtubeId": "TeIJYw2ge6Y",
+    "spotifyUri": "spotify:track:4jV94kFw9X0j88qJp9gX0T",
+    "spotifyUrl": "https://open.spotify.com/track/4jV94kFw9X0j88qJp9gX0T",
+    "audioUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/69/f0/57/69f0572b-198f-a22e-d983-37874a4e26c9/mzaf_16604368240167334850.plus.aac.p.m4a",
+    "needsReview": false
+  },
+  {
+    "id": "lapaata-ek-tha-tiger",
+    "title": "Lapaata",
+    "film": "Ek Tha Tiger",
+    "year": 2012,
+    "singers": [
+      "K.K.",
+      "Palak Muchhal"
+    ],
+    "duration": 256,
+    "youtubeSearchUrl": "https://www.youtube.com/results?search_query=Lapaata%20Ek%20Tha%20Tiger%20Salman%20Khan%20song",
+    "youtubeId": "3PqxT1VqyNc",
+    "spotifyUri": "spotify:track:4jV94kFw9X0j88qJp9gX0T",
+    "spotifyUrl": "https://open.spotify.com/track/4jV94kFw9X0j88qJp9gX0T",
+    "audioUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/69/f0/57/69f0572b-198f-a22e-d983-37874a4e26c9/mzaf_16604368240167334850.plus.aac.p.m4a",
+    "needsReview": false
+  },
+  {
+    "id": "just-chill-maine-pyaar-kyun-kiya",
+    "title": "Just Chill",
+    "film": "Maine Pyaar Kyun Kiya",
+    "year": 2005,
+    "singers": [
+      "Sonu Nigam",
+      "Jayesh Gandhi"
+    ],
+    "duration": 326,
+    "youtubeSearchUrl": "https://www.youtube.com/results?search_query=Just%20Chill%20Maine%20Pyaar%20Kyun%20Kiya%20Salman%20Khan%20song",
+    "youtubeId": "w5iA5LIwF2A",
+    "spotifyUri": "spotify:track:4jV94kFw9X0j88qJp9gX0T",
+    "spotifyUrl": "https://open.spotify.com/track/4jV94kFw9X0j88qJp9gX0T",
+    "audioUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/69/f0/57/69f0572b-198f-a22e-d983-37874a4e26c9/mzaf_16604368240167334850.plus.aac.p.m4a",
+    "needsReview": false
+  },
+  {
+    "id": "yentamma-kisi-ka-bhai-kisi-ki-jaan",
+    "title": "Yentamma",
     "film": "Kisi Ka Bhai Kisi Ki Jaan",
     "year": 2023,
-    "singers": ["Kamaal Khan", "Palak Muchhal"],
-    "spotifyUrl": "https://open.spotify.com/playlist/37i9dQZF1DZ06evO3CjygN",
+    "singers": [
+      "Vishal Dadlani",
+      "Payal Dev"
+    ],
+    "duration": 178,
+    "youtubeSearchUrl": "https://www.youtube.com/results?search_query=Yentamma%20Kisi%20Ka%20Bhai%20Kisi%20Ki%20Jaan%20Salman%20Khan%20song",
     "youtubeId": "lzEop75AeOk",
-    "duration": 325,
+    "spotifyUri": "spotify:track:4jV94kFw9X0j88qJp9gX0T",
+    "spotifyUrl": "https://open.spotify.com/track/4jV94kFw9X0j88qJp9gX0T",
+    "audioUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/69/f0/57/69f0572b-198f-a22e-d983-37874a4e26c9/mzaf_16604368240167334850.plus.aac.p.m4a",
+    "needsReview": false
+  },
+  {
+    "id": "dil-deewana-maine-pyar-kiya",
+    "title": "Dil Deewana",
+    "film": "Maine Pyar Kiya",
+    "year": 1989,
+    "singers": [
+      "S.P. Balasubrahmanyam"
+    ],
+    "duration": 355,
+    "youtubeSearchUrl": "https://www.youtube.com/results?search_query=Dil%20Deewana%20Maine%20Pyar%20Kiya%20Salman%20Khan%20song",
+    "youtubeId": "5s68NXiaWgk",
+    "spotifyUri": "spotify:track:4jV94kFw9X0j88qJp9gX0T",
+    "spotifyUrl": "https://open.spotify.com/track/4jV94kFw9X0j88qJp9gX0T",
+    "audioUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/69/f0/57/69f0572b-198f-a22e-d983-37874a4e26c9/mzaf_16604368240167334850.plus.aac.p.m4a",
+    "needsReview": false
+  },
+  {
+    "id": "tere-naam-tere-naam",
+    "title": "Tere Naam",
+    "film": "Tere Naam",
+    "year": 2003,
+    "singers": [
+      "Udit Narayan",
+      "Alka Yagnik"
+    ],
+    "duration": 393,
+    "youtubeSearchUrl": "https://www.youtube.com/results?search_query=Tere%20Naam%20Tere%20Naam%20Salman%20Khan%20song",
+    "youtubeId": "OMoU0Pfibc4",
+    "spotifyUri": "spotify:track:4jV94kFw9X0j88qJp9gX0T",
+    "spotifyUrl": "https://open.spotify.com/track/4jV94kFw9X0j88qJp9gX0T",
+    "audioUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/69/f0/57/69f0572b-198f-a22e-d983-37874a4e26c9/mzaf_16604368240167334850.plus.aac.p.m4a",
+    "needsReview": false
+  },
+  {
+    "id": "dil-diyan-gallan-tiger-zinda-hai",
+    "title": "Dil Diyan Gallan",
+    "film": "Tiger Zinda Hai",
+    "year": 2017,
+    "singers": [
+      "Atif Aslam"
+    ],
+    "duration": 260,
+    "youtubeSearchUrl": "https://www.youtube.com/results?search_query=Dil%20Diyan%20Gallan%20Tiger%20Zinda%20Hai%20Salman%20Khan%20song",
+    "youtubeId": "POvFEQaK634",
+    "spotifyUri": "spotify:track:4jV94kFw9X0j88qJp9gX0T",
+    "spotifyUrl": "https://open.spotify.com/track/4jV94kFw9X0j88qJp9gX0T",
+    "audioUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/69/f0/57/69f0572b-198f-a22e-d983-37874a4e26c9/mzaf_16604368240167334850.plus.aac.p.m4a",
+    "needsReview": false
+  },
+  {
+    "id": "jag-ghoomeya-sultan",
+    "title": "Jag Ghoomeya",
+    "film": "Sultan",
+    "year": 2016,
+    "singers": [
+      "Rahat Fateh Ali Khan"
+    ],
+    "duration": 282,
+    "youtubeSearchUrl": "https://www.youtube.com/results?search_query=Jag%20Ghoomeya%20Sultan%20Salman%20Khan%20song",
+    "youtubeId": "U2iXYl8TiQE",
+    "spotifyUri": "spotify:track:4jV94kFw9X0j88qJp9gX0T",
+    "spotifyUrl": "https://open.spotify.com/track/4jV94kFw9X0j88qJp9gX0T",
+    "audioUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/69/f0/57/69f0572b-198f-a22e-d983-37874a4e26c9/mzaf_16604368240167334850.plus.aac.p.m4a",
+    "needsReview": false
+  },
+  {
+    "id": "main-hoon-hero-tera-hero",
+    "title": "Main Hoon Hero Tera",
+    "film": "Hero",
+    "year": 2015,
+    "singers": [
+      "Salman Khan"
+    ],
+    "duration": 284,
+    "youtubeSearchUrl": "https://www.youtube.com/results?search_query=Main%20Hoon%20Hero%20Tera%20Hero%20Salman%20Khan%20song",
+    "youtubeId": "DMH-GARKr1U",
+    "spotifyUri": "spotify:track:4jV94kFw9X0j88qJp9gX0T",
+    "spotifyUrl": "https://open.spotify.com/track/4jV94kFw9X0j88qJp9gX0T",
+    "audioUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/69/f0/57/69f0572b-198f-a22e-d983-37874a4e26c9/mzaf_16604368240167334850.plus.aac.p.m4a",
+    "needsReview": false
+  },
+  {
+    "id": "aaj-unse-milna-hai-prem-ratan-dhan-payo",
+    "title": "Aaj Unse Milna Hai",
+    "film": "Prem Ratan Dhan Payo",
+    "year": 2015,
+    "singers": [
+      "Shaan"
+    ],
+    "duration": 243,
+    "youtubeSearchUrl": "https://www.youtube.com/results?search_query=Aaj%20Unse%20Milna%20Hai%20Prem%20Ratan%20Dhan%20Payo%20Salman%20Khan%20song",
+    "youtubeId": "9Vy9ObEOVvg",
+    "spotifyUri": "spotify:track:4jV94kFw9X0j88qJp9gX0T",
+    "spotifyUrl": "https://open.spotify.com/track/4jV94kFw9X0j88qJp9gX0T",
+    "audioUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/69/f0/57/69f0572b-198f-a22e-d983-37874a4e26c9/mzaf_16604368240167334850.plus.aac.p.m4a",
+    "needsReview": false
+  },
+  {
+    "id": "prem-leela-prem-ratan-dhan-payo",
+    "title": "Prem Leela",
+    "film": "Prem Ratan Dhan Payo",
+    "year": 2015,
+    "singers": [
+      "Aman Trikha",
+      "Vineet Singh"
+    ],
+    "duration": 221,
+    "youtubeSearchUrl": "https://www.youtube.com/results?search_query=Prem%20Leela%20Prem%20Ratan%20Dhan%20Payo%20Salman%20Khan%20song",
+    "youtubeId": "QDHsMmOvrN0",
+    "spotifyUri": "spotify:track:4jV94kFw9X0j88qJp9gX0T",
+    "spotifyUrl": "https://open.spotify.com/track/4jV94kFw9X0j88qJp9gX0T",
+    "audioUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/69/f0/57/69f0572b-198f-a22e-d983-37874a4e26c9/mzaf_16604368240167334850.plus.aac.p.m4a",
+    "needsReview": false
+  },
+  {
+    "id": "tu-jo-mila-bajrangi-bhaijaan",
+    "title": "Tu Jo Mila",
+    "film": "Bajrangi Bhaijaan",
+    "year": 2015,
+    "singers": [
+      "K.K."
+    ],
+    "duration": 244,
+    "youtubeSearchUrl": "https://www.youtube.com/results?search_query=Tu%20Jo%20Mila%20Bajrangi%20Bhaijaan%20Salman%20Khan%20song",
+    "youtubeId": "6DCOjq0omBc",
+    "spotifyUri": "spotify:track:4jV94kFw9X0j88qJp9gX0T",
+    "spotifyUrl": "https://open.spotify.com/track/4jV94kFw9X0j88qJp9gX0T",
+    "audioUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/69/f0/57/69f0572b-198f-a22e-d983-37874a4e26c9/mzaf_16604368240167334850.plus.aac.p.m4a",
+    "needsReview": false
+  },
+  {
+    "id": "saiyaara-ek-tha-tiger",
+    "title": "Saiyaara",
+    "film": "Ek Tha Tiger",
+    "year": 2012,
+    "singers": [
+      "Mohit Chauhan",
+      "Taraannum Mallik"
+    ],
+    "duration": 253,
+    "youtubeSearchUrl": "https://www.youtube.com/results?search_query=Saiyaara%20Ek%20Tha%20Tiger%20Salman%20Khan%20song",
+    "youtubeId": "A5pSnIwbpaM",
+    "spotifyUri": "spotify:track:4jV94kFw9X0j88qJp9gX0T",
+    "spotifyUrl": "https://open.spotify.com/track/4jV94kFw9X0j88qJp9gX0T",
+    "audioUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/69/f0/57/69f0572b-198f-a22e-d983-37874a4e26c9/mzaf_16604368240167334850.plus.aac.p.m4a",
+    "needsReview": false
+  },
+  {
+    "id": "surili-akhiyon-wale-veer",
+    "title": "Surili Akhiyon Wale",
+    "film": "Veer",
+    "year": 2010,
+    "singers": [
+      "Rahat Fateh Ali Khan",
+      "Sunidhi Chauhan"
+    ],
+    "duration": 315,
+    "youtubeSearchUrl": "https://www.youtube.com/results?search_query=Surili%20Akhiyon%20Wale%20Veer%20Salman%20Khan%20song",
+    "youtubeId": "2knQOXevwKE",
+    "spotifyUri": "spotify:track:4jV94kFw9X0j88qJp9gX0T",
+    "spotifyUrl": "https://open.spotify.com/track/4jV94kFw9X0j88qJp9gX0T",
+    "audioUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/69/f0/57/69f0572b-198f-a22e-d983-37874a4e26c9/mzaf_16604368240167334850.plus.aac.p.m4a",
+    "needsReview": false
+  },
+  {
+    "id": "chori-kiya-re-jiya-dabangg",
+    "title": "Chori Kiya Re Jiya",
+    "film": "Dabangg",
+    "year": 2010,
+    "singers": [
+      "Sonu Nigam",
+      "Shreya Ghoshal"
+    ],
+    "duration": 288,
+    "youtubeSearchUrl": "https://www.youtube.com/results?search_query=Chori%20Kiya%20Re%20Jiya%20Dabangg%20Salman%20Khan%20song",
+    "youtubeId": "0KozfDYK1EU",
+    "spotifyUri": "spotify:track:4jV94kFw9X0j88qJp9gX0T",
+    "spotifyUrl": "https://open.spotify.com/track/4jV94kFw9X0j88qJp9gX0T",
+    "audioUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/69/f0/57/69f0572b-198f-a22e-d983-37874a4e26c9/mzaf_16604368240167334850.plus.aac.p.m4a",
+    "needsReview": false
+  },
+  {
+    "id": "tere-bina-single",
+    "title": "Tere Bina",
+    "film": "Single",
+    "year": 2020,
+    "singers": [
+      "Salman Khan"
+    ],
+    "duration": 215,
+    "youtubeSearchUrl": "https://www.youtube.com/results?search_query=Tere%20Bina%20Single%20Salman%20Khan%20song",
+    "youtubeId": "v6cW7gR7SXY",
+    "spotifyUri": "spotify:track:4jV94kFw9X0j88qJp9gX0T",
+    "spotifyUrl": "https://open.spotify.com/track/4jV94kFw9X0j88qJp9gX0T",
+    "audioUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/69/f0/57/69f0572b-198f-a22e-d983-37874a4e26c9/mzaf_16604368240167334850.plus.aac.p.m4a",
+    "needsReview": false
+  },
+  {
+    "id": "tumse-milne-ki-tamanna-hai-saajan",
+    "title": "Tumse Milne Ki Tamanna Hai",
+    "film": "Saajan",
+    "year": 1991,
+    "singers": [
+      "S.P. Balasubrahmanyam"
+    ],
+    "duration": 330,
+    "youtubeSearchUrl": "https://www.youtube.com/results?search_query=Tumse%20Milne%20Ki%20Tamanna%20Hai%20Saajan%20Salman%20Khan%20song",
+    "youtubeId": "FsNc7I33w60",
+    "spotifyUri": "spotify:track:4jV94kFw9X0j88qJp9gX0T",
+    "spotifyUrl": "https://open.spotify.com/track/4jV94kFw9X0j88qJp9gX0T",
+    "audioUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/69/f0/57/69f0572b-198f-a22e-d983-37874a4e26c9/mzaf_16604368240167334850.plus.aac.p.m4a",
+    "needsReview": false
+  },
+  {
+    "id": "kar-doon-kamaal-mujhse-shaadi-karogi",
+    "title": "Kar Doon Kamaal",
+    "film": "Mujhse Shaadi Karogi",
+    "year": 2004,
+    "singers": [
+      "Sukhwinder Singh"
+    ],
+    "duration": 275,
+    "youtubeSearchUrl": "https://www.youtube.com/results?search_query=Kar%20Doon%20Kamaal%20Mujhse%20Shaadi%20Karogi%20Salman%20Khan%20song",
+    "youtubeId": "xyngwCXoMdI",
+    "spotifyUri": "spotify:track:4jV94kFw9X0j88qJp9gX0T",
+    "spotifyUrl": "https://open.spotify.com/track/4jV94kFw9X0j88qJp9gX0T",
+    "audioUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/69/f0/57/69f0572b-198f-a22e-d983-37874a4e26c9/mzaf_16604368240167334850.plus.aac.p.m4a",
+    "needsReview": false
+  },
+  {
+    "id": "dekhne-walon-ne-chori-chori-chupke-chupke",
+    "title": "Dekhne Walon Ne",
+    "film": "Chori Chori Chupke Chupke",
+    "year": 2001,
+    "singers": [
+      "Udit Narayan",
+      "Alka Yagnik"
+    ],
+    "duration": 370,
+    "youtubeSearchUrl": "https://www.youtube.com/results?search_query=Dekhne%20Walon%20Ne%20Chori%20Chori%20Chupke%20Chupke%20Salman%20Khan%20song",
+    "youtubeId": "6oxkN1rRPW4",
+    "spotifyUri": "spotify:track:4jV94kFw9X0j88qJp9gX0T",
+    "spotifyUrl": "https://open.spotify.com/track/4jV94kFw9X0j88qJp9gX0T",
+    "audioUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/69/f0/57/69f0572b-198f-a22e-d983-37874a4e26c9/mzaf_16604368240167334850.plus.aac.p.m4a",
+    "needsReview": false
+  },
+  {
+    "id": "kuk-duk-koo-stuntman-salman",
+    "title": "Kuk-Duk-Koo",
+    "film": "Stuntman / Salman",
+    "year": 2003,
+    "singers": [
+      "Kumar Sanu"
+    ],
+    "duration": 280,
+    "youtubeSearchUrl": "https://www.youtube.com/results?search_query=Kuk-Duk-Koo%20Stuntman%20%2F%20Salman%20Salman%20Khan%20song",
+    "youtubeId": "8TIZ7S_PlVk",
+    "spotifyUri": "spotify:track:4jV94kFw9X0j88qJp9gX0T",
+    "spotifyUrl": "https://open.spotify.com/track/4jV94kFw9X0j88qJp9gX0T",
+    "audioUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/69/f0/57/69f0572b-198f-a22e-d983-37874a4e26c9/mzaf_16604368240167334850.plus.aac.p.m4a",
+    "needsReview": false
+  },
+  {
+    "id": "tu-shama-main-parwana-khamoshi-the-musical",
+    "title": "Tu Shama Main Parwana",
+    "film": "Khamoshi: The Musical",
+    "year": 1996,
+    "singers": [
+      "Udit Narayan"
+    ],
+    "duration": 310,
+    "youtubeSearchUrl": "https://www.youtube.com/results?search_query=Tu%20Shama%20Main%20Parwana%20Khamoshi%3A%20The%20Musical%20Salman%20Khan%20song",
+    "youtubeId": "w2iozAbNXAo",
+    "spotifyUri": "spotify:track:4jV94kFw9X0j88qJp9gX0T",
+    "spotifyUrl": "https://open.spotify.com/track/4jV94kFw9X0j88qJp9gX0T",
+    "audioUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/69/f0/57/69f0572b-198f-a22e-d983-37874a4e26c9/mzaf_16604368240167334850.plus.aac.p.m4a",
+    "needsReview": false
+  },
+  {
+    "id": "yeh-mausam-ka-jadoo-hum-aapke-hain-koun",
+    "title": "Yeh Mausam Ka Jadoo",
+    "film": "Hum Aapke Hain Koun",
+    "year": 1994,
+    "singers": [
+      "Lata Mangeshkar",
+      "SPB"
+    ],
+    "duration": 320,
+    "youtubeSearchUrl": "https://www.youtube.com/results?search_query=Yeh%20Mausam%20Ka%20Jadoo%20Hum%20Aapke%20Hain%20Koun%20Salman%20Khan%20song",
+    "youtubeId": "ZqcDGvCM_w0",
+    "spotifyUri": "spotify:track:4jV94kFw9X0j88qJp9gX0T",
+    "spotifyUrl": "https://open.spotify.com/track/4jV94kFw9X0j88qJp9gX0T",
+    "audioUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/69/f0/57/69f0572b-198f-a22e-d983-37874a4e26c9/mzaf_16604368240167334850.plus.aac.p.m4a",
+    "needsReview": false
+  },
+  {
+    "id": "duniya-mein-aaye-ho-to-judwaa",
+    "title": "Duniya Mein Aaye Ho To",
+    "film": "Judwaa",
+    "year": 1997,
+    "singers": [
+      "Kumar Sanu",
+      "Kavita Krishnamurthy"
+    ],
+    "duration": 310,
+    "youtubeSearchUrl": "https://www.youtube.com/results?search_query=Duniya%20Mein%20Aaye%20Ho%20To%20Judwaa%20Salman%20Khan%20song",
+    "youtubeId": "QmHTmr8Kazs",
+    "spotifyUri": "spotify:track:4jV94kFw9X0j88qJp9gX0T",
+    "spotifyUrl": "https://open.spotify.com/track/4jV94kFw9X0j88qJp9gX0T",
+    "audioUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/69/f0/57/69f0572b-198f-a22e-d983-37874a4e26c9/mzaf_16604368240167334850.plus.aac.p.m4a",
+    "needsReview": false
+  },
+  {
+    "id": "odh-liya-maine-piya-ka-naam-pyaar-kiya-to-darna-kya",
+    "title": "Odh Liya Maine Piya Ka Naam",
+    "film": "Pyaar Kiya To Darna Kya",
+    "year": 1998,
+    "singers": [
+      "Alka Yagnik",
+      "Kumar Sanu"
+    ],
+    "duration": 360,
+    "youtubeSearchUrl": "https://www.youtube.com/results?search_query=Odh%20Liya%20Maine%20Piya%20Ka%20Naam%20Pyaar%20Kiya%20To%20Darna%20Kya%20Salman%20Khan%20song",
+    "youtubeId": "x_elT6zkqN0",
+    "spotifyUri": "spotify:track:4jV94kFw9X0j88qJp9gX0T",
+    "spotifyUrl": "https://open.spotify.com/track/4jV94kFw9X0j88qJp9gX0T",
+    "audioUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/69/f0/57/69f0572b-198f-a22e-d983-37874a4e26c9/mzaf_16604368240167334850.plus.aac.p.m4a",
+    "needsReview": false
+  },
+  {
+    "id": "bindiya-chamke-re-hssh-hum-saath-saath-hain",
+    "title": "Bindiya Chamke Re HSSH",
+    "film": "Hum Saath-Saath Hain",
+    "year": 1999,
+    "singers": [
+      "Alka Yagnik"
+    ],
+    "duration": 330,
+    "youtubeSearchUrl": "https://www.youtube.com/results?search_query=Bindiya%20Chamke%20Re%20HSSH%20Hum%20Saath-Saath%20Hain%20Salman%20Khan%20song",
+    "youtubeId": "8XtXLVylOoU",
+    "spotifyUri": "spotify:track:4jV94kFw9X0j88qJp9gX0T",
+    "spotifyUrl": "https://open.spotify.com/track/4jV94kFw9X0j88qJp9gX0T",
+    "audioUrl": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/69/f0/57/69f0572b-198f-a22e-d983-37874a4e26c9/mzaf_16604368240167334850.plus.aac.p.m4a",
     "needsReview": false
   }
 ]

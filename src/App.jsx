@@ -137,7 +137,6 @@ export default function App() {
   }, []);
 
   const toggle = useCallback(() => {
-    setIsPlaying((prev) => !prev);
     audioEngine.toggle();
   }, []);
 

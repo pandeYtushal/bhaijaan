@@ -31,6 +31,18 @@ class SaloonAudioEngine {
       });
     });
 
+    this.audio.addEventListener('play', () => {
+      if (this.ytPlayer) return;
+      this.isPlaying = true;
+      this.notifyListeners('state_change', { isPlaying: true, isPaused: false, trackInfo: this.currentTrack });
+    });
+
+    this.audio.addEventListener('pause', () => {
+      if (this.ytPlayer) return;
+      this.isPlaying = false;
+      this.notifyListeners('state_change', { isPlaying: false, isPaused: true, trackInfo: this.currentTrack });
+    });
+
     this.audio.addEventListener('ended', () => {
       if (this.ytPlayer) return;
       console.log('[SaloonAudioEngine] Track ended, playing next track');
@@ -44,7 +56,7 @@ class SaloonAudioEngine {
     if (this.currentTrack && this.currentTrack.youtubeId) {
       try {
         this.ytPlayer.cueVideoById(this.currentTrack.youtubeId, 0);
-      } catch (e) {}
+      } catch (e) { }
     }
   }
 
@@ -77,7 +89,7 @@ class SaloonAudioEngine {
           isPaused: !this.isPlaying,
           trackInfo: this.currentTrack
         });
-      } catch (e) {}
+      } catch (e) { }
     }, 100);
   }
 
@@ -121,7 +133,7 @@ class SaloonAudioEngine {
     this.listeners.forEach((fn) => {
       try {
         fn(type, data);
-      } catch (e) {}
+      } catch (e) { }
     });
   }
 
@@ -205,7 +217,7 @@ class SaloonAudioEngine {
       if (this.ytPlayer && typeof this.ytPlayer.stopVideo === 'function') {
         this.ytPlayer.stopVideo();
       }
-    } catch (e) {}
+    } catch (e) { }
 
     if (this.ytPlayer && typeof this.ytPlayer.loadVideoById === 'function' && track.youtubeId) {
       try {
@@ -242,7 +254,7 @@ class SaloonAudioEngine {
         this.ytPlayer.playVideo();
         this.isPlaying = true;
         return;
-      } catch (e) {}
+      } catch (e) { }
     }
 
     this.audio.play()
@@ -261,7 +273,7 @@ class SaloonAudioEngine {
         this.ytPlayer.pauseVideo();
         this.isPlaying = false;
         return;
-      } catch (e) {}
+      } catch (e) { }
     }
 
     this.audio.pause();
@@ -297,7 +309,7 @@ class SaloonAudioEngine {
       try {
         this.ytPlayer.seekTo(seconds, true);
         return;
-      } catch (e) {}
+      } catch (e) { }
     }
 
     this.audio.currentTime = seconds;

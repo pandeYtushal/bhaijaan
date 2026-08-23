@@ -9,7 +9,7 @@ function loadYouTubeIframeApi() {
   }
   if (ytPromise) return ytPromise;
 
-  ytPromise = new Promise((resolve) => {
+  ytPromise = new Promise((resolve, reject) => {
     const prev = window.onYouTubeIframeAPIReady;
     window.onYouTubeIframeAPIReady = () => {
       if (typeof prev === 'function') prev();
@@ -20,6 +20,11 @@ function loadYouTubeIframeApi() {
       const script = document.createElement('script');
       script.src = 'https://www.youtube.com/iframe_api';
       script.async = true;
+      script.onerror = (err) => {
+        console.error('[YouTubePlayer] Failed to load YouTube iframe API script', err);
+        ytPromise = null;
+        reject(err);
+      };
       document.head.appendChild(script);
     }
   });
@@ -34,45 +39,49 @@ export function YouTubePlayer() {
   useEffect(() => {
     let isCancelled = false;
 
-    loadYouTubeIframeApi().then((YT) => {
-      if (isCancelled || !containerRef.current || playerRef.current) return;
+    loadYouTubeIframeApi()
+      .then((YT) => {
+        if (isCancelled || !containerRef.current || playerRef.current) return;
 
-      const element = document.createElement('div');
-      element.id = 'yt-player-root';
-      containerRef.current.replaceChildren(element);
+        const element = document.createElement('div');
+        element.id = 'yt-player-root';
+        containerRef.current.replaceChildren(element);
 
-      playerRef.current = new YT.Player(element, {
-        height: '1',
-        width: '1',
-        videoId: 'x_elT6zkqN0',
-        playerVars: {
-          autoplay: 0,
-          controls: 0,
-          disablekb: 1,
-          fs: 0,
-          modestbranding: 1,
-          playsinline: 1,
-          rel: 0
-        },
-        events: {
-          onReady: (event) => {
-            console.log('[YouTubePlayer] YT API Ready');
-            audioEngine.setYouTubePlayer(event.target);
+        playerRef.current = new YT.Player(element, {
+          height: '1',
+          width: '1',
+          videoId: 'x_elT6zkqN0',
+          playerVars: {
+            autoplay: 0,
+            controls: 0,
+            disablekb: 1,
+            fs: 0,
+            modestbranding: 1,
+            playsinline: 1,
+            rel: 0
           },
-          onStateChange: (event) => {
-            // YT.PlayerState: UNSTARTED (-1), ENDED (0), PLAYING (1), PAUSED (2), BUFFERING (3)
-            if (event.data === YT.PlayerState.ENDED) {
-              console.log('[YouTubePlayer] Song ended naturally, playing next');
-              audioEngine.next();
-            } else if (event.data === YT.PlayerState.PLAYING) {
-              audioEngine.onYTPlaybackStateChange(true);
-            } else if (event.data === YT.PlayerState.PAUSED) {
-              audioEngine.onYTPlaybackStateChange(false);
+          events: {
+            onReady: (event) => {
+              console.log('[YouTubePlayer] YT API Ready');
+              audioEngine.setYouTubePlayer(event.target);
+            },
+            onStateChange: (event) => {
+              // YT.PlayerState: UNSTARTED (-1), ENDED (0), PLAYING (1), PAUSED (2), BUFFERING (3)
+              if (event.data === YT.PlayerState.ENDED) {
+                console.log('[YouTubePlayer] Song ended naturally, playing next');
+                audioEngine.next();
+              } else if (event.data === YT.PlayerState.PLAYING) {
+                audioEngine.onYTPlaybackStateChange(true);
+              } else if (event.data === YT.PlayerState.PAUSED) {
+                audioEngine.onYTPlaybackStateChange(false);
+              }
             }
           }
-        }
+        });
+      })
+      .catch((err) => {
+        console.warn('[YouTubePlayer] Failed to initialize YouTube player, using HTML5 Audio fallback', err);
       });
-    });
 
     return () => {
       isCancelled = true;

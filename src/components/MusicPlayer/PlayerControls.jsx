@@ -1,4 +1,5 @@
 import React from 'react';
+import { Play, Pause, SkipBack, SkipForward } from 'lucide-react';
 
 export function PlayerControls({ isPlaying, onToggle, onNext, onPrevious }) {
   return (
@@ -11,9 +12,9 @@ export function PlayerControls({ isPlaying, onToggle, onNext, onPrevious }) {
           e.stopPropagation();
           onPrevious?.();
         }}
-        aria-label="Previous"
+        aria-label="Previous Track"
       >
-        ←
+        <SkipBack size={18} />
       </button>
 
       <button
@@ -26,7 +27,7 @@ export function PlayerControls({ isPlaying, onToggle, onNext, onPrevious }) {
         }}
         aria-label={isPlaying ? 'Pause' : 'Play'}
       >
-        {isPlaying ? '❚❚' : '▶'}
+        {isPlaying ? <Pause size={20} /> : <Play size={20} style={{ marginLeft: '2px' }} />}
       </button>
 
       <button
@@ -37,9 +38,9 @@ export function PlayerControls({ isPlaying, onToggle, onNext, onPrevious }) {
           e.stopPropagation();
           onNext?.();
         }}
-        aria-label="Next"
+        aria-label="Next Track"
       >
-        →
+        <SkipForward size={18} />
       </button>
     </div>
   );
