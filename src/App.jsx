@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { playlists, PLAYLISTS } from './data/playlists';
-import { MOODS } from './data/moods';
+import { playlist, PLAYLISTS } from './data/playlists';
 import { MusicPlayer } from './components/MusicPlayer/MusicPlayer';
 import { YouTubePlayer } from './components/YouTubePlayer';
 import { audioEngine } from './utils/audioEngine';
@@ -13,22 +12,15 @@ function isTypingTarget(target) {
 }
 
 export default function App() {
-  const [activeMode, setActiveMode] = useState(MOODS[0]);
-  const [activePlaylist, setActivePlaylist] = useState(PLAYLISTS[0]);
-
-  // 100% Canonical playback state from SaloonAudioEngine
-  const [currentTrack, setCurrentTrack] = useState(PLAYLISTS[0].tracks[0]);
+  const [currentTrack, setCurrentTrack] = useState(playlist.tracks[0]);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [position, setPosition] = useState(0);
-  const [duration, setDuration] = useState(PLAYLISTS[0].tracks[0].duration || 300);
-
+  const [duration, setDuration] = useState(playlist.tracks[0]?.duration || 300);
   const [filmFlash, setFilmFlash] = useState(false);
   const [isRewinding, setIsRewinding] = useState(false);
 
-  // Rewind & Radio Tuning Effect
   const triggerRewindEffect = useCallback(() => {
-    audioFX.playRadioTuning();
     setIsRewinding(true);
     setFilmFlash(true);
     requestAnimationFrame(() => {
@@ -39,10 +31,9 @@ export default function App() {
     });
   }, []);
 
-  // Listen to SaloonAudioEngine updates (100% accurate song titles & state)
+  // Listen to SaloonAudioEngine updates
   useEffect(() => {
-    // Initial load sync - start clean from 0:00
-    audioEngine.loadPlaylist(PLAYLISTS[0], false, false);
+    audioEngine.loadPlaylist(playlist, false, false);
 
     const unsubscribe = audioEngine.addListener((type, data) => {
       if (type === 'playback_update' || type === 'state_change') {
@@ -51,15 +42,9 @@ export default function App() {
         } else if (typeof data.isPaused === 'boolean') {
           setIsPlaying(!data.isPaused);
         }
-        if (Number.isFinite(data.position)) {
-          setPosition(data.position);
-        }
-        if (Number.isFinite(data.duration) && data.duration > 0) {
-          setDuration(data.duration);
-        }
-        if (data.trackInfo && data.trackInfo.title) {
-          setCurrentTrack(data.trackInfo);
-        }
+        if (Number.isFinite(data.position)) setPosition(data.position);
+        if (Number.isFinite(data.duration) && data.duration > 0) setDuration(data.duration);
+        if (data.trackInfo && data.trackInfo.title) setCurrentTrack(data.trackInfo);
         setIsLoading(false);
       }
     });
@@ -67,74 +52,29 @@ export default function App() {
     return () => unsubscribe();
   }, []);
 
-  // Unlock Web Audio Context on first touch/click anywhere (saloon.wtf mobile auto-resume)
+  // Unlock Web Audio on first gesture
   useEffect(() => {
-    const handleFirstUserGesture = () => {
+    const handle = () => {
       audioFX.init();
       audioFX.toggleVinylCrackle(true);
     };
-    window.addEventListener('click', handleFirstUserGesture, { once: true });
-    window.addEventListener('touchstart', handleFirstUserGesture, { once: true });
+    window.addEventListener('click', handle, { once: true });
+    window.addEventListener('touchstart', handle, { once: true });
     return () => {
-      window.removeEventListener('click', handleFirstUserGesture);
-      window.removeEventListener('touchstart', handleFirstUserGesture);
+      window.removeEventListener('click', handle);
+      window.removeEventListener('touchstart', handle);
     };
   }, []);
 
-  // Mode Switcher: Loads Saloon Station Playlist directly
-  const changeMode = useCallback((targetMood, targetPlaylist, autoStart = true) => {
-    if (!targetPlaylist) return;
+  const next = useCallback(() => {
     triggerRewindEffect();
-
-    console.log('[BHAIJAAN] LOAD SALOON STATION PLAYLIST:', targetPlaylist.name);
-
-    setActiveMode(targetMood || MOODS[0]);
-    setActivePlaylist(targetPlaylist);
-    if (targetPlaylist.tracks && targetPlaylist.tracks[0]) {
-      setCurrentTrack(targetPlaylist.tracks[0]);
-      setDuration(targetPlaylist.tracks[0].duration || 300);
-    }
-    setPosition(0);
-
-    audioEngine.loadPlaylist(targetPlaylist, autoStart, false);
+    audioEngine.next();
   }, [triggerRewindEffect]);
 
-  // Actions
-  const playSomething = useCallback(() => {
-    audioFX.playScissors();
-    changeMode(activeMode, activePlaylist, true);
-  }, [changeMode, activeMode, activePlaylist]);
-
-  const takeMeBack = useCallback(() => {
-    const randomMood = MOODS[Math.floor(Math.random() * MOODS.length)];
-    const key = randomMood.key || 'bhaiMode';
-    const targetPlaylist = playlists[key] || PLAYLISTS[0];
-
-    changeMode(randomMood, targetPlaylist, true);
-  }, [changeMode]);
-
-  const handleMoodClick = useCallback((mood) => {
-    audioFX.playScissors();
-    const moodObj = typeof mood === 'object' ? mood : MOODS.find(m => m.id === mood || m.key === mood);
-    const key = moodObj ? moodObj.key : 'bhaiMode';
-    const targetPlaylist = playlists[key] || PLAYLISTS[0];
-
-    if (key === 'bhaiMode') {
-      audioFX.playBhaiMode();
-    }
-
-    changeMode(moodObj, targetPlaylist, true);
-  }, [changeMode]);
-
-  const next = useCallback(() => {
-    audioFX.playRadioTuning();
-    audioEngine.next();
-  }, []);
-
   const previous = useCallback(() => {
-    audioFX.playRadioTuning();
+    triggerRewindEffect();
     audioEngine.previous();
-  }, []);
+  }, [triggerRewindEffect]);
 
   const toggle = useCallback(() => {
     audioEngine.toggle();
@@ -145,10 +85,10 @@ export default function App() {
     audioEngine.seek(seconds);
   }, []);
 
+  // Keyboard controls
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (isTypingTarget(event.target)) return;
-
       const code = event.code || event.key;
       if (code === 'Space' || event.key === ' ' || event.key === 'Spacebar') {
         event.preventDefault();
@@ -161,7 +101,6 @@ export default function App() {
         previous();
       }
     };
-
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [next, previous, toggle]);
@@ -176,39 +115,19 @@ export default function App() {
       {/* Hidden YouTube Audio Stream Player */}
       <YouTubePlayer />
 
-
-      {/* Center Stage — Emotional Hero with Vertical Mode Dial */}
+      {/* Center Stage */}
       <section className="center-stage">
-        <div className="hero-content-wrapper">
-          <div className="hero-main">
-            <h1 className="hero-hindi-title">भाईजान</h1>
-            <p className="hindi">हर दौर. हर गाना. हमेशा भाईजान.</p>
-            <p className="years">1989 — ∞</p>
-          </div>
-
-          {/* Vertical Mode Navigation */}
-          <nav className="vertical-modes-nav" aria-label="Mood navigation">
-            {MOODS.map((mood, index) => (
-              <button
-                key={mood.id}
-                type="button"
-                className={`vertical-mode-btn ${activeMode.id === mood.id ? 'active' : ''}`}
-                onClick={() => handleMoodClick(mood)}
-                aria-label={`Switch to ${mood.label}`}
-              >
-                <span className="mode-number">{String(index + 1).padStart(2, '0')}</span>
-                <span className="mode-label-text">{mood.label}</span>
-              </button>
-            ))}
-          </nav>
+        <div className="hero-main">
+          <h1 className="hero-hindi-title">भाईजान</h1>
+          <p className="hindi">हर दौर. हर गाना. हमेशा भाईजान.</p>
+          <p className="years">1989 — ∞</p>
         </div>
       </section>
 
-      {/* Player Dock — Floating Bottom Island */}
+      {/* Player Dock */}
       <section className="dock environment-dock" aria-label="Player">
         <MusicPlayer
-          mode={activeMode}
-          playlist={activePlaylist}
+          playlist={playlist}
           track={currentTrack}
           isPlaying={isPlaying}
           isLoading={isLoading}

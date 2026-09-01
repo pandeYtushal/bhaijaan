@@ -8,7 +8,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "sync:spotify": "node scripts/syncSpotifyCatalog.js",
-    "validate:spotify": "node scripts/validateSpotifyTracks.js"
+    "validate:spotify": "node scripts/validateSpotifyTracks.js",
+    "validate:songs": "node scripts/validateSongCatalog.js"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.0.0",

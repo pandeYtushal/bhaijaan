@@ -6,9 +6,9 @@ export function MiniPlayer({ track, isPlaying, onToggle, onExpand }) {
   return (
     <div className="mini-player-strip" onClick={onExpand}>
       <div className="mini-info">
-        <span className="mini-note">♪</span>
+        <span className="mini-note">NOW</span>
         <strong className="mini-title">{track.title}</strong>
-        <span className="mini-dash">—</span>
+        <span className="mini-dash">-</span>
         <span className="mini-year">{track.year}</span>
       </div>
 
@@ -21,7 +21,7 @@ export function MiniPlayer({ track, isPlaying, onToggle, onExpand }) {
         }}
         aria-label={isPlaying ? 'Pause' : 'Play'}
       >
-        {isPlaying ? 'Ⅱ' : '▶'}
+        {isPlaying ? 'PAUSE' : 'PLAY'}
       </button>
     </div>
   );

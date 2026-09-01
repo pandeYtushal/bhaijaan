@@ -6,7 +6,6 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const rootDir = path.resolve(__dirname, '..');
 
-// Helper to load .env variables if available
 function loadEnv() {
   const envPath = path.join(rootDir, '.env');
   if (fs.existsSync(envPath)) {
@@ -90,7 +89,7 @@ async function getAccessToken() {
     method: 'POST',
     headers: {
       'Authorization': `Basic ${authHeader}`,
-      'Content-Type': 'application/x-www-form-request-body'
+      'Content-Type': 'application/x-www-form-urlencoded'
     },
     body: new URLSearchParams({ grant_type: 'client_credentials' })
   });
@@ -118,36 +117,32 @@ async function runSync() {
   console.log('====================================================\n');
 
   if (!CLIENT_ID || !CLIENT_SECRET || CLIENT_ID === 'your_client_id') {
-    console.log('⚠️  Spotify Web API Credentials Required.\n');
+    console.log('[NOTICE] Spotify Web API Credentials Required.\n');
     console.log('Please set:');
     console.log('  SPOTIFY_CLIENT_ID=your_client_id');
     console.log('  SPOTIFY_CLIENT_SECRET=your_client_secret');
     console.log('in your .env file or environment variables.\n');
-    console.log('See .env.example for details.');
-    console.log('Then run:\n  npm run sync:spotify\n');
     console.log('====================================================');
     return;
   }
 
-  // Load existing songs database
-  const songsPath = path.join(rootDir, 'src', 'data', 'songs.js');
+  const songsPath = path.join(rootDir, 'src', 'data', 'songs-with-spotify.json');
   let songCatalog = [];
 
   try {
-    const rawModule = await import(`file://${songsPath}`);
-    songCatalog = rawModule.SONGS || [];
+    songCatalog = JSON.parse(fs.readFileSync(songsPath, 'utf8'));
   } catch (err) {
-    console.error('Failed to load local songs database:', err);
+    console.error('[ERROR] Failed to load local songs database:', err);
     return;
   }
 
-  console.log(`🔑 Authenticating with Spotify API...`);
+  console.log('[AUTH] Authenticating with Spotify API...');
   let token;
   try {
     token = await getAccessToken();
-    console.log('✓ Authenticated successfully.\n');
+    console.log('[AUTH] Authenticated successfully.\n');
   } catch (err) {
-    console.error('❌ Spotify Authentication Failed:', err.message);
+    console.error('[AUTH ERROR] Spotify Authentication Failed:', err.message);
     return;
   }
 
@@ -171,64 +166,35 @@ async function runSync() {
       }
     }
 
-    let item = {
-      id: song.id,
-      title: song.title,
-      film: song.film,
-      year: song.year,
-      singers: song.singers || [],
-      spotifyUri: null,
-      spotifyUrl: null,
-      spotifyTrackId: null,
-      matchConfidence: bestScore,
-      needsReview: true
-    };
+    let item = { ...song };
 
     if (bestCandidate && bestScore >= 0.90) {
       item.spotifyUri = bestCandidate.uri;
       item.spotifyUrl = bestCandidate.external_urls?.spotify || `https://open.spotify.com/track/${bestCandidate.id}`;
-      item.spotifyTrackId = bestCandidate.id;
-      item.needsReview = false;
       matchedCount++;
-      console.log(`✓ ${song.title.padEnd(28, '.')} ${bestScore.toFixed(2)}`);
+      console.log(`[MATCH] ${song.title.padEnd(28, '.')} ${bestScore.toFixed(2)}`);
     } else if (bestCandidate && bestScore >= 0.75) {
       item.spotifyUri = bestCandidate.uri;
       item.spotifyUrl = bestCandidate.external_urls?.spotify || `https://open.spotify.com/track/${bestCandidate.id}`;
-      item.spotifyTrackId = bestCandidate.id;
-      item.needsReview = true;
       reviewCount++;
-      console.log(`? ${song.title.padEnd(28, '.')} ${bestScore.toFixed(2)} (Needs Review)`);
+      console.log(`[REVIEW] ${song.title.padEnd(28, '.')} ${bestScore.toFixed(2)}`);
     } else {
       unmatchedCount++;
-      console.log(`✗ ${song.title.padEnd(28, '.')} NOT FOUND / LOW SCORE (${bestScore.toFixed(2)})`);
+      console.log(`[MISS] ${song.title.padEnd(28, '.')} LOW SCORE (${bestScore.toFixed(2)})`);
     }
 
     results.push(item);
   }
 
-  // Save to src/data/songs-with-spotify.json
   const outputPath = path.join(rootDir, 'src', 'data', 'songs-with-spotify.json');
   fs.writeFileSync(outputPath, JSON.stringify(results, null, 2), 'utf8');
-
-  // Save report to spotify-match-report.json
-  const reportPath = path.join(rootDir, 'spotify-match-report.json');
-  const reportData = {
-    total: results.length,
-    matched: matchedCount,
-    needsReview: reviewCount,
-    unmatched: unmatchedCount,
-    timestamp: new Date().toISOString(),
-    results
-  };
-  fs.writeFileSync(reportPath, JSON.stringify(reportData, null, 2), 'utf8');
 
   console.log('\n----------------------------------------------------');
   console.log(`Matched:       ${matchedCount}`);
   console.log(`Needs review:  ${reviewCount}`);
   console.log(`Unmatched:     ${unmatchedCount}`);
   console.log('----------------------------------------------------');
-  console.log(`✓ Output saved to src/data/songs-with-spotify.json`);
-  console.log(`✓ Report saved to spotify-match-report.json`);
+  console.log('[SUCCESS] Output saved to src/data/songs-with-spotify.json');
   console.log('====================================================\n');
 }
 

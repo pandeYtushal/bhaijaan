@@ -4,7 +4,6 @@ import ProgressBar from './ProgressBar';
 import PlayerControls from './PlayerControls';
 
 export function MusicPlayer({
-  mode,
   playlist,
   track,
   isPlaying,
@@ -22,7 +21,6 @@ export function MusicPlayer({
     <div className={`environment-cassette-player ${isRewinding ? 'is-rewinding' : ''}`}>
       {/* Song info — just text floating */}
       <NowPlaying
-        mode={mode}
         playlist={playlist}
         track={track}
         isPlaying={isPlaying}

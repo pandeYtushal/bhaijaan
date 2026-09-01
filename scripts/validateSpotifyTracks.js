@@ -13,7 +13,7 @@ console.log('BHAIJAAN.WTF — Spotify Track Database Validator');
 console.log('====================================================\n');
 
 if (!fs.existsSync(jsonPath)) {
-  console.error('Data file not found:', jsonPath);
+  console.error('[ERROR] Data file not found:', jsonPath);
   console.log('Please run:\n  npm run sync:spotify\n');
   process.exit(1);
 }
@@ -23,7 +23,7 @@ let songs = [];
 try {
   songs = JSON.parse(rawData);
 } catch (e) {
-  console.error('❌ Invalid JSON format in songs-with-spotify.json:', e.message);
+  console.error('[ERROR] Invalid JSON format in songs-with-spotify.json:', e.message);
   process.exit(1);
 }
 
@@ -37,7 +37,7 @@ const seenTrackUris = new Set();
 
 songs.forEach((song) => {
   if (seenIds.has(song.id)) {
-    console.warn(`⚠️ Duplicate local song ID: ${song.id}`);
+    console.warn(`[WARN] Duplicate local song ID: ${song.id}`);
   }
   seenIds.add(song.id);
 
@@ -54,35 +54,35 @@ songs.forEach((song) => {
 
   if (uri && !isDummyUri) {
     if (seenTrackUris.has(uri)) {
-      console.warn(`⚠️ Duplicate Spotify URI: ${uri} for song '${song.title}'`);
+      console.warn(`[WARN] Duplicate Spotify URI: ${uri} for song '${song.title}'`);
     }
     seenTrackUris.add(uri);
 
     const isFormatValid = /^spotify:track:[a-zA-Z0-9]{22}$/.test(uri);
     if (!isFormatValid) {
       invalidUriCount++;
-      console.warn(`⚠️ Potentially non-standard Spotify URI format: ${uri} for '${song.title}'`);
+      console.warn(`[WARN] Non-standard Spotify URI format: ${uri} for '${song.title}'`);
     }
 
     if (song.needsReview || (song.matchConfidence && song.matchConfidence < 0.90)) {
       reviewCount++;
-      console.log(`? ${song.title.padEnd(28, '.')} [${(song.matchConfidence || 0).toFixed(2)}] Needs Review`);
+      console.log(`[REVIEW] ${song.title.padEnd(28, '.')} [${(song.matchConfidence || 0).toFixed(2)}]`);
     } else {
       verifiedCount++;
-      console.log(`✓ ${song.title.padEnd(28, '.')} [${(song.matchConfidence || 1.0).toFixed(2)}] Verified (${uri})`);
+      console.log(`[PASS] ${song.title.padEnd(28, '.')} [${(song.matchConfidence || 1.0).toFixed(2)}] (${uri})`);
     }
   } else {
     unavailableCount++;
-    console.log(`✗ ${song.title.padEnd(28, '.')} [${(song.matchConfidence || 0).toFixed(2)}] Unavailable on Spotify`);
+    console.log(`[UNAVAILABLE] ${song.title.padEnd(28, '.')} Unavailable on Spotify`);
   }
 });
 
 console.log('\n----------------------------------------------------');
-console.log(`✓ ${verifiedCount} verified tracks`);
-console.log(`⚠ ${reviewCount} tracks need review`);
-console.log(`✗ ${unavailableCount} tracks unavailable on Spotify`);
+console.log(`[SUMMARY] ${verifiedCount} verified tracks`);
+console.log(`[SUMMARY] ${reviewCount} tracks need review`);
+console.log(`[SUMMARY] ${unavailableCount} tracks unavailable on Spotify`);
 if (invalidUriCount > 0) {
-  console.log(`⚠️ ${invalidUriCount} non-standard URI formats detected`);
+  console.log(`[SUMMARY] ${invalidUriCount} non-standard URI formats detected`);
 }
 console.log('----------------------------------------------------');
 console.log('====================================================\n');

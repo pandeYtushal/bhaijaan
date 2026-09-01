@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-export function NowPlaying({ mode, playlist, track, isPlaying, isLoading }) {
+export function NowPlaying({ playlist, track, isPlaying, isLoading }) {
   const [animating, setAnimating] = useState(false);
   const [displayTrack, setDisplayTrack] = useState(track);
 
@@ -17,8 +17,7 @@ export function NowPlaying({ mode, playlist, track, isPlaying, isLoading }) {
   }, [track, displayTrack]);
 
   const activeTrack = displayTrack || track;
-  const modeName = mode?.label || mode?.name || playlist?.name || 'BHAI MODE';
-  const trackTitle = activeTrack?.title || activeTrack?.name || 'O O Jaane Jaana';
+  const trackTitle = activeTrack?.title || 'O O Jaane Jaana';
 
   const singersList = Array.isArray(activeTrack?.singers)
     ? activeTrack.singers.join(', ')
@@ -31,16 +30,15 @@ export function NowPlaying({ mode, playlist, track, isPlaying, isLoading }) {
 
   return (
     <div className={`compact-now-playing ${animating ? 'track-changing' : ''}`}>
-      {/* Quiet mode label */}
+      {/* Live indicator */}
       <div className="status-indicator">
-        <span className="mode-tag">{modeName}</span>
         <span className={`status-dot ${isPlaying ? 'is-active' : ''}`} />
       </div>
 
-      {/* The song — in Yatra One, like a memory */}
+      {/* Song title */}
       <h2 className="compact-track-title">{trackTitle}</h2>
 
-      {/* Who sang it, where it's from */}
+      {/* Singers · Film · Year */}
       {subtitle && (
         <div className="compact-track-sub">
           <span>{subtitle}</span>
