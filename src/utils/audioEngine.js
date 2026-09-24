@@ -1,8 +1,18 @@
-// BHAIJAAN.WTF — High Performance Saloon Audio Engine
-// Full-length YouTube streaming (3-5 min full songs) + HTML5 fallback
+/**
+ * @file audioEngine.js
+ * @description Centralized audio playback engine managing YouTube IFrame API and HTML5 Audio fallback.
+ * It serves as the single source of truth for playback state, track queueing, shuffle logic, 
+ * and browser MediaSession integration.
+ */
 
 import { audioFX } from './audioFX';
 
+/**
+ * Utility function to perform an in-place Fisher-Yates shuffle on an array.
+ * 
+ * @param {Array} arr - The array to shuffle.
+ * @returns {Array} A new shuffled array.
+ */
 function fisherYates(arr) {
   const a = [...arr];
   for (let i = a.length - 1; i > 0; i--) {
@@ -12,6 +22,11 @@ function fisherYates(arr) {
   return a;
 }
 
+/**
+ * SaloonAudioEngine Class
+ * A singleton engine that abstracts dual-backend playback (YouTube + HTML5 Audio).
+ * Emits unified events to React components to keep the UI in sync.
+ */
 class SaloonAudioEngine {
   constructor() {
     this.audio = new Audio();

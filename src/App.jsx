@@ -1,3 +1,10 @@
+/**
+ * @file App.jsx
+ * @description Main application entry point for "Bhaijaan". 
+ * Manages the global state for the audio player, handles playlist switching (eras),
+ * and orchestrates UI interactions like global keyboard shortcuts and vinyl effects.
+ */
+
 import { useCallback, useEffect, useState } from 'react';
 import { playlist, PLAYLISTS } from './data/playlists';
 import { MusicPlayer } from './components/MusicPlayer/MusicPlayer';
@@ -5,14 +12,26 @@ import { YouTubePlayer } from './components/YouTubePlayer';
 import { audioEngine } from './utils/audioEngine';
 import { audioFX } from './utils/audioFX';
 
+/**
+ * Utility to determine if a keyboard event originated from a typing field.
+ * Prevents global hotkeys from interfering with user inputs.
+ * 
+ * @param {EventTarget} target - The DOM element target of the event.
+ * @returns {boolean} True if the target is an input field.
+ */
 function isTypingTarget(target) {
   if (!(target instanceof HTMLElement)) return false;
   const tag = target.tagName;
   return tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || target.isContentEditable;
 }
 
+/**
+ * Main App Component
+ * Integrates the MusicPlayer UI with the SaloonAudioEngine and visual elements.
+ */
 export default function App() {
-  const [currentTrack, setCurrentTrack] = useState(playlist.tracks[0]);
+  const [activePlaylist, setActivePlaylist] = useState(playlist);
+  const [currentTrack, setCurrentTrack] = useState(activePlaylist.tracks[0]);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [position, setPosition] = useState(0);
@@ -33,7 +52,7 @@ export default function App() {
 
   // Listen to SaloonAudioEngine updates
   useEffect(() => {
-    audioEngine.loadPlaylist(playlist, false, false);
+    audioEngine.loadPlaylist(activePlaylist, false, false);
 
     const unsubscribe = audioEngine.addListener((type, data) => {
       if (type === 'playback_update' || type === 'state_change') {
@@ -105,6 +124,12 @@ export default function App() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [next, previous, toggle]);
 
+  const switchPlaylist = useCallback((newPlaylist) => {
+    setActivePlaylist(newPlaylist);
+    setCurrentTrack(newPlaylist.tracks[0]);
+    audioEngine.loadPlaylist(newPlaylist, true, false);
+  }, []);
+
   return (
     <main className="saloon-page">
       {filmFlash && <div className="film-flash" aria-hidden="true" />}
@@ -117,17 +142,31 @@ export default function App() {
 
       {/* Center Stage */}
       <section className="center-stage">
-        <div className="hero-main">
-          <h1 className="hero-hindi-title">भाईजान</h1>
-          <p className="hindi">हर दौर. हर गाना. हमेशा भाईजान.</p>
-          <p className="years">1989 — ∞</p>
+        <div className="hero-content-wrapper">
+          <div className="hero-main">
+            <h1 className="hero-hindi-title">भाईजान</h1>
+            <p className="hindi">{activePlaylist.name}</p>
+            <p className="years">{activePlaylist.subtitle}</p>
+          </div>
+          <nav className="vertical-modes-nav" aria-label="Eras">
+            {PLAYLISTS.map((pl, index) => (
+              <button
+                key={pl.id}
+                className={`vertical-mode-btn ${activePlaylist.id === pl.id ? 'active' : ''}`}
+                onClick={() => switchPlaylist(pl)}
+              >
+                <span className="mode-number">0{index + 1}</span>
+                <span className="mode-label-text">{pl.label}</span>
+              </button>
+            ))}
+          </nav>
         </div>
       </section>
 
       {/* Player Dock */}
       <section className="dock environment-dock" aria-label="Player">
         <MusicPlayer
-          playlist={playlist}
+          playlist={activePlaylist}
           track={currentTrack}
           isPlaying={isPlaying}
           isLoading={isLoading}

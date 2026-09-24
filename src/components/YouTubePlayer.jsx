@@ -1,8 +1,21 @@
+/**
+ * @file YouTubePlayer.jsx
+ * @description Hidden iframe component that loads the YouTube IFrame API.
+ * Mounts an invisible player bound to `audioEngine` to stream high-quality audio
+ * directly from YouTube without displaying the video.
+ */
+
 import { useEffect, useRef } from 'react';
 import { audioEngine } from '../utils/audioEngine';
 
 let ytPromise = null;
 
+/**
+ * Dynamically loads the YouTube IFrame API script and resolves when ready.
+ * Employs a singleton pattern to ensure the script is only loaded once.
+ * 
+ * @returns {Promise<Object>} A promise that resolves with the window.YT object.
+ */
 function loadYouTubeIframeApi() {
   if (window.YT && window.YT.Player) {
     return Promise.resolve(window.YT);
@@ -75,6 +88,10 @@ export function YouTubePlayer() {
               } else if (event.data === YT.PlayerState.PAUSED) {
                 audioEngine.onYTPlaybackStateChange(false);
               }
+            },
+            onError: (event) => {
+              console.warn('[YouTubePlayer] Error occurred:', event.data, 'skipping to next track...');
+              audioEngine.next();
             }
           }
         });
